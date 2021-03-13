@@ -1,31 +1,22 @@
-  
 * {
 	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+	margin: 10;
+	padding: 10;
 }
 
 body {
 	background: #f4f4f4;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: Garamond, Arial, Helvetica, sans-serif;
 	color: #333;
 	line-height: 1.6;
 }
 
-.container {
-	max-width: 650px;
-	margin: 1rem auto;
-	overflow: auto;
-	padding: 0 2rem;
+.center {
+    align-content: center;
 }
 
-h1 {
-	color: #777;
-	margin-top: 15px;
-}
-
-h3 {
-	margin-bottom: 10px;
+.input1 {
+	margin: 1.5rem 0;
 }
 
 img {
@@ -35,38 +26,67 @@ img {
 .message {
 	text-align: center;
 	padding: 5px;
-	border: #ccc dotted 2px;
+	border: rgb(211, 211, 211) dotted 2px;
 	margin-top: 2rem;
 }
 
 .logo {
+    padding-top: 20px;
 	width: 150px;
 	display: block;
 	margin: auto;
 }
 
-.form-group {
-	margin: 1rem 0;
-}
-
 input[type='text'],
-select,
+input[type='password'],
 textarea {
 	display: block;
 	width: 100%;
-	padding: 0.4rem;
+	padding: 0.7rem;
 	font-size: 1.2rem;
-	border: 1px solid #ccc;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    max-width: 330px;
+    margin-right: 5%;
+}
+
+.link {
+    font-size: 80%;
+    text-align: center;
+    margin-top: 30px;
 }
 
 .btn {
 	display: block;
 	width: 100%;
-	background: #333;
+	background: rgb(62, 163, 18);
 	color: #fff;
 	padding: 10px 20px;
 	border: none;
 	cursor: pointer;
 	outline: none;
-	margin-top: 1rem;
+    margin-top: 5%;
+    max-width: 330px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 20px;
+    border: 2px solid rgb(62, 163, 18);
+}
+
+.left {
+    width: 45%;
+    float: left;
+}
+
+.right {
+    margin-left: 55%;
+}
+
+.center {
+    text-align: center;
+}
+
+::placeholder {
+    color: rgb(184, 184, 184);
+    opacity: 1; /* Firefox */
 }

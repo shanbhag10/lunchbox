@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="../static/style.css" />
+    <link rel="stylesheet" href="../static/create_account.css" />
+    <title>Welcome to Lunchbox</title>
+  </head>
+  <body>
+    <div class="container">
+      <img src="../static/logo.jpeg" alt="Lunchbox" class="logo" />
+      {% if message %}
+        <p class="message">{{ message | safe }}</p>
+      {% endif %}
+      <div class="box">
+        <h1 class="center">Create New Account</h1>
+        <form action="/create_account" method="POST">
+            <div class="input1">
+                <div class="left">
+                    First Name
+                    <input
+                        type="text"
+                        name="first_name"
+                        placeholder="eg. Chandler"
+                    />
+                </div>
+                <div class="right">
+                    Last Name
+                    <input
+                        type="text"
+                        name="last_name"
+                        placeholder="eg. Bing"
+                    />
+                </div>
+            </div>
+            <div class="input1">
+                <div class="left">
+                    Email
+                    <input
+                        type="text"
+                        name="email"
+                        placeholder="eg. funnyguy@gmail.com"
+                    />
+                </div>
+                <div class="right">
+                    Password
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="eg. Sarcasm101#"
+                    />
+                </div>
+            </div>
+            <div class="input1">
+                <div class="left">
+                    Address (Optional)
+                    <input
+                        type="text"
+                        name="address"
+                        placeholder="eg. 15 Yemen Rd, Yemen"
+                        class="address"
+                    />
+                </div>
+                <div class="right">
+                    Phone Number (Optional)
+                    <input
+                        type="text"
+                        name="phone_number"
+                        placeholder="eg. 7774201234"
+                    />
+                </div>
+            </div>
+            <div class="input1 center top">
+                Are you a home chef?
+                <input
+                    type="radio"
+                    id="yes"
+                    name="chef"
+                    value="yes"
+                />
+                <label for="yes">Yes</label>
+                <input
+                    type="radio"
+                    id="no"
+                    name="chef"
+                    value="no"
+                    checked
+                />
+                <label for="no">No</label>
+            </div>
+            <input type="submit" value="Create Account" class="create btn"/>
+        </form>
+        <div class="link">
+            <span>Already on Lunchbox? <a href="/login">Sign In</a></span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

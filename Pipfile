@@ -9,6 +9,7 @@ configparser = "*"
 psycopg2-binary = "*"
 flask-sqlalchemy = "*"
 gunicorn = "*"
+flask-migrate = "*"
 
 [dev-packages]
 
