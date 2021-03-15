@@ -8,6 +8,16 @@ def create_new_user(request):
 
     user_db.save_user(user)
 
+    if (request['chef'] == 'yes'):
+        user_id = get_user_by_email(request['email']).id
+        create_new_chef_user(user_id)
+
+
+def create_new_chef_user(user_id):
+    chef = user_db.Chef(user_id, None, None, None)
+    print("new chef")
+    user_db.save_chef(chef)
+
 
 def validate_credentials(email, password):
     user = user_db.get_user_by_email(email)
@@ -15,6 +25,11 @@ def validate_credentials(email, password):
         return False
     return user.password == password
 
+
 def does_user_exist(email):
-    user = user_db.get_user_by_email(email)
+    user = get_user_by_email(email)
     return user != None
+
+
+def get_user_by_email(email):
+    return user_db.get_user_by_email(email)

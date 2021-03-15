@@ -10,6 +10,7 @@ psycopg2-binary = "*"
 flask-sqlalchemy = "*"
 gunicorn = "*"
 flask-migrate = "*"
+flask-session = "*"
 
 [dev-packages]
 

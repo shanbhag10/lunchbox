@@ -1,14 +1,13 @@
 * {
 	box-sizing: border-box;
-	margin: 10;
-	padding: 10;
+	margin: 0.5%;
 }
 
 body {
-	background: #f4f4f4;
+	background: #eeeeee;
 	font-family: Garamond, Arial, Helvetica, sans-serif;
 	color: #333;
-	line-height: 1.6;
+    line-height: 1.6;
 }
 
 .center {
@@ -31,8 +30,9 @@ img {
 }
 
 .logo {
-    padding-top: 20px;
-	width: 150px;
+    padding-top: 2%;
+    width: 20%;
+    max-width: 120px;
 	display: block;
 	margin: auto;
 }
@@ -53,7 +53,7 @@ textarea {
 .link {
     font-size: 80%;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 10%;
 }
 
 .btn {
@@ -61,7 +61,7 @@ textarea {
 	width: 100%;
 	background: rgb(62, 163, 18);
 	color: #fff;
-	padding: 10px 20px;
+	padding: 1% 2%;
 	border: none;
 	cursor: pointer;
 	outline: none;
@@ -71,6 +71,10 @@ textarea {
     font-weight: bold;
     border-radius: 20px;
     border: 2px solid rgb(62, 163, 18);
+}
+
+h1 {
+    font-size: 180%;
 }
 
 .left {
