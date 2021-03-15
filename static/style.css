@@ -15,11 +15,7 @@ body {
 }
 
 .input1 {
-	margin: 1.5rem 0;
-}
-
-img {
-	width: 100%;
+    margin: 1.5rem 0;
 }
 
 .message {
@@ -50,6 +46,10 @@ textarea {
     margin-right: 5%;
 }
 
+h1 {
+    font-size: 180%;
+}
+
 .link {
     font-size: 80%;
     text-align: center;
@@ -61,7 +61,7 @@ textarea {
 	width: 100%;
 	background: rgb(62, 163, 18);
 	color: #fff;
-	padding: 1% 2%;
+	padding: 3% 2%;
 	border: none;
 	cursor: pointer;
 	outline: none;
@@ -71,10 +71,6 @@ textarea {
     font-weight: bold;
     border-radius: 20px;
     border: 2px solid rgb(62, 163, 18);
-}
-
-h1 {
-    font-size: 180%;
 }
 
 .left {
@@ -93,4 +89,25 @@ h1 {
 ::placeholder {
     color: rgb(184, 184, 184);
     opacity: 1; /* Firefox */
+}
+
+@media screen and (max-width: 600px) {
+    input[type='text'],
+    input[type='password'],
+    textarea {
+        font-size: 3vw;
+    }
+
+    h1 {
+        font-size: 6vw;
+    }
+
+    .link {
+        font-size: 2.2vw;
+    }
+
+    .btn {
+        padding: 5% 2%;
+        font-size: 3.2vw;
+    }
 }

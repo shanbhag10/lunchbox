@@ -7,7 +7,7 @@
 
 .box {
     background-color: white;
-    margin: 5% 11% 1% 11%;
+    margin: 5% 10% 5% 10%;
     box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
     text-align: left;
     border-radius: 5px;
@@ -18,10 +18,9 @@
 
 .create {
     margin: auto;
-    margin-top: 50px;
+    margin-top: 8vw;
     border-radius: 30px;
     width: 95%;
-    padding: 2.5% 10%;
 }
 
 .center {
@@ -30,4 +29,16 @@
 
 .top {
     margin-top: 40px;
+}
+
+@media screen and (max-width: 600px) {
+    .box {
+        margin: 5% 2% 1% 2%;
+        font-size: 3.5vw;
+        max-width: 96%;
+    }
+
+    .top {
+        margin-top: 10px;
+    }
 }

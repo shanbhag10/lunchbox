@@ -1,7 +1,6 @@
 * {box-sizing: border-box}
 body {
 	font-family: Garamond, Arial, Helvetica, sans-serif;
-    line-height: 1.6;
     color: #333;
     background: #eeeeee;
 }
@@ -43,12 +42,9 @@ body {
 }
 
 .tabcontent {
-    float: left;
-    padding: 0px 12px;
+    padding-left: 15%;
     background-color: white;
     border: 1px solid #ccc;
-    width: 70%;
-    border-left: none;
     height: 98vh;
     border-radius: 2px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
@@ -66,4 +62,20 @@ body {
     bottom: 35px;
     left: 37px;
     position: fixed;
+}
+
+@media screen and (max-width: 400px) {
+    .tabcontent {
+        padding-left: 108px;
+        width: 100%;
+    }
+
+    .tab {
+        padding-left: 0%;
+        min-width: 100px;
+    }
+
+    .tab button {
+        padding: 15% 7%;
+    }
 }
