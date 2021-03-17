@@ -24,6 +24,7 @@ from controller.user import *
 from controller.item import *
 from helpers.validator import *
 from helpers.db_mapper import *
+from helpers.s3 import *
 
 @app.route('/')
 def hello():
@@ -78,9 +79,9 @@ def home():
 @app.route('/add_item', methods=['POST', 'GET'])
 def add_item():
     if request.method == 'POST':
-        create_new_item(request.form, session['user_id'])
+        pic_url = upload_pic(request.files)
+        create_new_item(request.form, session['user_id'], pic_url)
         return redirect(url_for('home'))
-        #return render_template('chef_home.html', message='Successfully created item.')
-
+        
 if __name__ == '__main__':
     app.run(debug=True)
