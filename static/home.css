@@ -11,8 +11,8 @@ body {
     background-color: rgb(50, 163, 1);
     border-radius: 2px;
     width: 10%;
-    min-width: 120px;
-    height: 98vh;
+    min-width: 110px;
+    height: 90vh;
     box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
 }
 
@@ -27,7 +27,7 @@ body {
     text-align: left;
     cursor: pointer;
     transition: 0.5s;
-    font-size: 95%;
+    font-size: 85%;
 }
 
 .tab button:hover {
@@ -38,44 +38,98 @@ body {
 .tab button.active {
     background-color: rgb(70, 193, 21);
     font-weight: bold;
-    font-size: 105%;
+    font-size: 95%;
 }
 
 .tabcontent {
-    padding-left: 15%;
+    padding-left: 130px;
     background-color: white;
     border: 1px solid #ccc;
-    height: 98vh;
+    height: 90vh;
     border-radius: 2px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
 }
 
-.tabspace {
-    height: 50vh;
+.btn {
+	display: block;
+	background: rgb(62, 163, 18);
+	color: #fff;
+	padding: 7px 7px 7px 7px;
+    max-width: 130px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 20px;
+    border: 2px solid rgb(62, 163, 18);
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
-.logo {
-    width: 60px;
+.add_item_form {
+    display: none;
+    background-color: #eeeeee;
+    width: 95%;
+    padding: 3% 3% 3% 3%;
+}
+
+input[type='text'],
+textarea {
 	display: block;
-    margin: auto;
-    align-self: center;
-    bottom: 35px;
-    left: 37px;
-    position: fixed;
+	width: 100%;
+	padding: 0.2rem;
+	font-size: inherit;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-right: 5%;
+    max-width: 330px;
+}
+
+.pic_button {
+    font-size: 60%;
+    margin-bottom: 5%;
+}
+
+.input1 {
+    margin-bottom: 2%;
 }
 
 @media screen and (max-width: 400px) {
     .tabcontent {
-        padding-left: 108px;
-        width: 100%;
+        padding-left: 80px;
+        font-size: 3vw;
     }
 
     .tab {
         padding-left: 0%;
-        min-width: 100px;
+        min-width: 70px;
+        font-size: 75%;
     }
 
     .tab button {
         padding: 15% 7%;
     }
+
+    .btn {
+        padding: 4px 4px 4px 4px;
+        font-size: 0.6rem;
+    }
+
+    .input1 {
+        margin-bottom: 4%;
+    }
 }
+
+@media screen and (min-width: 1000px) {
+    .tabcontent {
+        padding-left: 12%;
+        font-size: 120%;
+    }
+
+    .btn {
+        font-size: 1rem;
+    }
+
+    .add_item_form {
+        padding: 20px 20px;
+    }
+}
+

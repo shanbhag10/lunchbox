@@ -15,7 +15,6 @@ def create_new_user(request):
 
 def create_new_chef_user(user_id):
     chef = user_db.Chef(user_id, None, None, None)
-    print("new chef")
     user_db.save_chef(chef)
 
 

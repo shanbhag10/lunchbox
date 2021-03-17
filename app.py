@@ -19,7 +19,9 @@ db = SQLAlchemy(app)
 Session(app)
 
 from db.user import *
+from db.item import *
 from controller.user import *
+from controller.item import *
 from helpers.validator import *
 from helpers.db_mapper import *
 
@@ -63,12 +65,22 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/home')
+@app.route('/home', methods=['GET'])
 def home():
     user = get_user_by_email(session['email'])
     user_profile = user_to_dict(user)
-    
-    return render_template('chef_home.html', user_profile=user_profile)
+
+    items = get_items_for_chef(session['user_id'])
+    items_dicts = items_to_dict(items)
+
+    return render_template('chef_home.html', user_profile=user_profile, items_dicts=items_dicts)
+
+@app.route('/add_item', methods=['POST', 'GET'])
+def add_item():
+    if request.method == 'POST':
+        create_new_item(request.form, session['user_id'])
+        return redirect(url_for('home'))
+        #return render_template('chef_home.html', message='Successfully created item.')
 
 if __name__ == '__main__':
     app.run(debug=True)

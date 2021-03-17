@@ -1,7 +1,4 @@
-from flask import Flask, render_template, request
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import os
 from app import db
 
 class User(db.Model):

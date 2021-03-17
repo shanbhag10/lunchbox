@@ -5,20 +5,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="../static/common.css" />
     <link rel="stylesheet" href="../static/home.css" />
     <link rel="shortcut icon" href="../static/logo.jpeg" type="image/png">
-    <script src="../static/panel.js"></script>
+    <script src="../static/home.js"></script>
     <title> Welcome to Lunchbox</title>
   </head>
   <body>
 
     <div class="tab">
       <button class="tablinks" onclick="openCity(event, 'Profile')">Profile</button>
-      <button class="tablinks" onclick="openCity(event, 'Items')">Items</button>
-      <button class="tablinks" onclick="openCity(event, 'Orders')" id="defaultOpen">Orders</button>
+      <button class="tablinks" onclick="openCity(event, 'Items')" id="defaultOpen">Items</button>
+      <button class="tablinks" onclick="openCity(event, 'Orders')" >Orders</button>
       <button class="tablinks" onclick="openCity(event, 'Dashboard')">Dashboard</button>
       <button class="tablinks" onclick="openCity(event, 'Todays_Menu')">Today's Menu</button>
-      <div class="tabspace"></div>
     </div>
 
     <div id="Profile" class="tabcontent">
@@ -35,7 +35,81 @@
 
     <div id="Items" class="tabcontent">
       <h2>Items</h2>
-      <p>Edit your items here</p> 
+      {% if message %}
+        <p class="message">{{ message | safe }}</p>
+      {% endif %}
+      <button type="button" class="btn" onclick="openCollapsible();">Add Item</button>
+      <div id="item_form" class="add_item_form">
+        <form action="/add_item" method="POST">
+          <div class="input1">
+            <div class="left">
+              Name
+              <input
+                  type="text"
+                  name="item_name"
+                  placeholder="eg. Paneer Tikka"
+              />
+            </div>
+            <div class="right">
+              Type
+              <input
+                  type="text"
+                  name="item_type"
+                  placeholder="eg. Entree"
+              />
+            </div>
+          </div>
+          <div class="input1">
+            <div class="left">
+              Cost ($)
+              <input
+                  type="text"
+                  name="cost"
+                  placeholder="eg. 5.99"
+              />
+            </div>
+            <div class="right">
+              Portion size
+              <input
+                  type="text"
+                  name="portion_size"
+                  placeholder="eg. 16 oz"
+              />
+            </div>
+          </div>
+          <div class="input1">
+            <div class="left">
+              Description
+              <textarea 
+                name="description" 
+                rows="4" 
+                placeholder="eg. Paneer chunks marinated in spiced yogurt & grilled in a tandoor"></textarea>
+            </div>
+            <div class="right">
+                Picture
+                <input type="file" name="picture" accept="image/*" class="pic_button">
+              <input type="submit" value="Save Item" class="btn"/>
+            </div>
+        </div>
+        
+        </form>
+      </div>
+      <div>
+        <table>
+          {% for item in items_dicts %}
+             <tr>
+              <table id="result" class="center">
+                {% for key, value in item.items() %}
+                   <tr>
+                      <th> {{ key }}: </th>
+                      <td> {{ value }} </td>
+                   </tr>
+                {% endfor %}
+              </table>
+             </tr>
+          {% endfor %}
+        </table>
+      </div>
     </div>
 
     <div id="Orders" class="tabcontent">
