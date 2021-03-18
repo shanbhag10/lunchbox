@@ -82,6 +82,6 @@ def add_item():
         pic_url = upload_pic(request.files)
         create_new_item(request.form, session['user_id'], pic_url)
         return redirect(url_for('home'))
-        
+
 if __name__ == '__main__':
     app.run(debug=True)

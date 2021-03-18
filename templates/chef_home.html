@@ -40,7 +40,7 @@
       {% endif %}
       <button type="button" class="btn" onclick="openCollapsible();">Add Item</button>
       <div id="item_form" class="add_item_form">
-        <form action="/add_item" method="POST" enctype="multipart/form-data" >
+        <form action="/add_item" method="POST" enctype="multipart/form-data">
           <div class="input1">
             <div class="left">
               Name
@@ -96,7 +96,7 @@
       <div>
         <table id="items_list">
           {% for item in items_dicts %}
-             <tr>
+            <tr>
               <div class="item">
                 <div class="item_pic">
                   <img class="pic" src="{{ item['Picture'] }}"/>
@@ -109,7 +109,7 @@
                   <p class="description"> {{ item["Description"] }} </p>  
                 </div>
               </div>
-             </tr>
+            </tr>
           {% endfor %}
         </table>
       </div>
