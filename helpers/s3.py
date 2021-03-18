@@ -30,4 +30,4 @@ def upload_file_to_s3(file, bucket_name, acl='public-read'):
         print("Something Happened: ", e)
         return e
 
-    return 'https://' + os.environ.get('S3_BUCKET_NAME') + '.s3.us-east-2.amazonaws.com/' + file.filename 
+    return 'https://' + os.environ.get('S3_BUCKET_NAME') + '.s3.us-east-2.amazonaws.com/' + file.filename
