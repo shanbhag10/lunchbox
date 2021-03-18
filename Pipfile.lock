@@ -354,7 +354,7 @@
                 "sha256:fd0813d175cb85618a1b32ca5f2610531c54c9235036cd77700301fada9d97cb"
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5'",
-            "version": "==1.4.1"
+            "version": "==1.3.23"
         },
         "urllib3": {
             "hashes": [
