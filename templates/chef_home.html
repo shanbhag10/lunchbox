@@ -14,16 +14,16 @@
   <body>
 
     <div class="tab">
-      <button class="tablinks" onclick="openCity(event, 'Profile')">Profile</button>
-      <button class="tablinks" onclick="openCity(event, 'Items')" id="defaultOpen">Items</button>
-      <button class="tablinks" onclick="openCity(event, 'Orders')" >Orders</button>
-      <button class="tablinks" onclick="openCity(event, 'Dashboard')">Dashboard</button>
-      <button class="tablinks" onclick="openCity(event, 'Todays_Menu')">Today's Menu</button>
+      <button class="tablinks" onclick="openPage(event, 'Profile')">Profile</button>
+      <button class="tablinks" onclick="openPage(event, 'Items')" id="defaultOpen">Items</button>
+      <button class="tablinks" onclick="openPage(event, 'Orders')" >Orders</button>
+      <button class="tablinks" onclick="openPage(event, 'Dashboard')">Dashboard</button>
+      <button class="tablinks" onclick="openPage(event, 'Todays_Menu')">Today's Menu</button>
     </div>
 
     <div id="Profile" class="tabcontent">
       <h2>Profile</h2>
-      <table id="result" class="center">
+      <table id="user_profile">
         {% for key, value in user_profile.items() %}
            <tr>
               <th> {{ key }}: </th>
@@ -40,7 +40,7 @@
       {% endif %}
       <button type="button" class="btn" onclick="openCollapsible();">Add Item</button>
       <div id="item_form" class="add_item_form">
-        <form action="/add_item" method="POST">
+        <form action="/add_item" method="POST" enctype="multipart/form-data">
           <div class="input1">
             <div class="left">
               Name
@@ -86,8 +86,8 @@
                 placeholder="eg. Paneer chunks marinated in spiced yogurt & grilled in a tandoor"></textarea>
             </div>
             <div class="right">
-                Picture
-                <input type="file" name="picture" accept="image/*" class="pic_button">
+              Picture
+              <input id="item_picture" src="#" type="file" name="item_picture" accept="image/*" class="pic_button">
               <input type="submit" value="Save Item" class="btn"/>
             </div>
         </div>
@@ -95,18 +95,22 @@
         </form>
       </div>
       <div>
-        <table>
+        <table id="items_list">
           {% for item in items_dicts %}
-             <tr>
-              <table id="result" class="center">
-                {% for key, value in item.items() %}
-                   <tr>
-                      <th> {{ key }}: </th>
-                      <td> {{ value }} </td>
-                   </tr>
-                {% endfor %}
-              </table>
-             </tr>
+            <tr>
+              <div class="item">
+                <div class="item_pic">
+                  <img class="pic" src="{{ item['Picture'] }}"/>
+                </div>
+                <div>
+                  <div>
+                    <p class="cost"> ${{ item["Cost"] }} </p>
+                    <p class="title"> {{ item["Name"] }} </p>
+                  </div>
+                  <p class="description"> {{ item["Description"] }} </p>  
+                </div>
+              </div>
+            </tr>
           {% endfor %}
         </table>
       </div>

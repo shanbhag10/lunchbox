@@ -14,6 +14,7 @@ def items_to_dict(items):
         item_dict['Description'] = item.description
         item_dict['Cost'] = item.cost
         item_dict['Portion Size'] = item.portion_size
+        item_dict['Picture'] = item.picture_url
         item_dicts.append(item_dict)
 
     return item_dicts
