@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from datetime import datetime
 import os
 
@@ -16,6 +17,7 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db, compare_type=True)
 Session(app)
 
 from db.user import *
@@ -26,9 +28,11 @@ from helpers.validator import *
 from helpers.db_mapper import *
 from helpers.s3 import *
 
+
 @app.route('/')
 def hello():
     return render_template('login.html')
+
 
 @app.route('/create_account', methods=['POST', 'GET'])
 def create_account():
@@ -61,27 +65,37 @@ def login():
         user = get_user_by_email(session['email'])
         session['user_id'] = user.id
         
-        return redirect(url_for('home'))
+        return redirect(url_for('home', page='profile'))
 
     return render_template('login.html')
 
 
-@app.route('/home', methods=['GET'])
-def home():
+@app.route('/home/<page>', methods=['GET'])
+def home(page):
     user = get_user_by_email(session['email'])
     user_profile = user_to_dict(user)
 
     items = get_items_for_chef(session['user_id'])
     items_dicts = items_to_dict(items)
 
-    return render_template('chef_home.html', user_profile=user_profile, items_dicts=items_dicts)
+    return render_template('chef_home.html', user_profile=user_profile, items_dicts=items_dicts, page=page)
+
 
 @app.route('/add_item', methods=['POST', 'GET'])
 def add_item():
     if request.method == 'POST':
-        pic_url = upload_pic(request.files)
+        pic_url = upload_pic(request.files['item_picture'], session['user_id'], request.form['item_name'])
         create_new_item(request.form, session['user_id'], pic_url)
-        return redirect(url_for('home'))
+        return redirect(url_for('home', page='items'))
+
+
+@app.route('/update_profile', methods=['POST', 'GET'])
+def update_profile():
+    if request.method == 'POST':
+        pic_url = upload_pic(request.files['profile_pic'], session['user_id'], request.form['first_name_in'])
+        update_user(request.form, session['user_id'], pic_url)
+        return redirect(url_for('home', page='profile'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -18,8 +18,14 @@ A web app that connects local home chefs to busy folks for healthy home-made foo
 ### heroku open
 `heroku open -a lunchbox-app` 
 
+### migrate db
+`flask db stamp head`
+`flask db migrate`
+`flask db upgrade`
+
 ## Links
 https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/
 
 ## Video
 https://www.youtube.com/watch?v=w25ea_I89iM&t=297s
+

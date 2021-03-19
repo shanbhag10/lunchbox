@@ -45,15 +45,12 @@ h1 {
     margin-top: 10%;
 }
 
-.btn {
-	display: block;
-	width: 100%;
+.btn, input[type='submit'] {
+    display: block;
+    width: 100%;
 	background: rgb(62, 163, 18);
 	color: #fff;
 	padding: 3% 2%;
-	border: none;
-	cursor: pointer;
-	outline: none;
     margin-top: 5%;
     max-width: 330px;
     font-size: 1.2rem;

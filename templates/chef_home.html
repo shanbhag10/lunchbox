@@ -14,23 +14,102 @@
   <body>
 
     <div class="tab">
-      <button class="tablinks" onclick="openPage(event, 'Profile')">Profile</button>
-      <button class="tablinks" onclick="openPage(event, 'Items')" id="defaultOpen">Items</button>
-      <button class="tablinks" onclick="openPage(event, 'Orders')" >Orders</button>
-      <button class="tablinks" onclick="openPage(event, 'Dashboard')">Dashboard</button>
-      <button class="tablinks" onclick="openPage(event, 'Todays_Menu')">Today's Menu</button>
+      <button class="tablinks" onclick="openPage(event, 'Profile')" id="profile_tab">Profile</button>
+      <button class="tablinks" onclick="openPage(event, 'Items')" id="items_tab">Items</button>
+      <button class="tablinks" onclick="openPage(event, 'Orders')" id="orders_tab">Orders</button>
+      <button class="tablinks" onclick="openPage(event, 'Dashboard')" id="dashboard_tab">Dashboard</button>
+      <button class="tablinks" onclick="openPage(event, 'Todays_Menu')" id="todays_menu_tab">Today's Menu</button>
     </div>
 
     <div id="Profile" class="tabcontent">
       <h2>Profile</h2>
-      <table id="user_profile">
-        {% for key, value in user_profile.items() %}
-           <tr>
-              <th> {{ key }}: </th>
-              <td> {{ value }} </td>
-           </tr>
-        {% endfor %}
+      {% if message %}
+        <p class="message">{{ message | safe }}</p>
+      {% endif %}
+	    <table id="user_profile">
+        <tr>
+          <th>Name</th>
+          <td class="input1">{{ user_profile['First Name'] }} {{ user_profile['Last Name'] }}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>{{ user_profile['Email'] }}</td>
+        </tr>
+        {% if user_profile['Phone Number'] %}
+        <tr>
+          <th>Phone No</th>
+          <td>{{ user_profile['Phone Number'] }}</td>
+        </tr>
+        {% endif %}
+        {% if user_profile['Address'] %}
+        <tr>
+          <th>Address</th>
+          <td>{{ user_profile['Address'] }}</td>
+        </tr>
+        {% endif %}
+
+        {% if user_profile['Profile Picture'] %}
+        <div>
+          <img class="profile_pic" src="{{ user_profile['Profile Picture'] }}"/>
+        </div>
+        {% endif %}
       </table>
+      <button type="button" class="btn" onclick="openUserForm();">Update Profile</button>
+      <div id="user_form" class="add_item_form">
+        <form action="/update_profile" method="POST" enctype="multipart/form-data">
+          <div class="input1">
+            <div class="left">
+              First Name
+              <input
+                  type="text"
+                  name="first_name_in"
+                  value="{{ user_profile['First Name'] }}"
+              />
+            </div>
+            <div class="right">
+              Last Name
+              <input
+                  type="text"
+                  name="last_name_in"
+                  value="{{ user_profile['Last Name'] }}"
+              />
+            </div>
+          </div>
+          <div class="input1">
+            <div class="left">
+              Phone Number
+              <input
+                  type="text"
+                  name="phone_number_in"
+                  value="{{ user_profile['Phone Number'] }}"
+              />
+            </div>
+            <div class="right">
+              Venmo Id
+              <input
+                  type="text"
+                  name="venmo_id_in"
+                  value="{{ user_profile['Venmo Id'] }}"
+              />
+            </div>
+          </div>
+          <div class="input1">
+            <div class="left">
+              Address
+              <textarea 
+                name="address_in" 
+                rows="4">{{ user_profile['Address'] }}</textarea>
+            </div>
+            <div class="right">
+              <div>
+                Profile Picture
+              </div>
+              <input id="profile_pic" src="#" type="file" name="profile_pic" accept="image/*" class="pic_button">
+              <input type="submit" value="Save Profile" class="btn" onclick="openTab('profile_tab');"/>
+            </div>
+        </div>
+        </form>
+      </div>
     </div>
 
     <div id="Items" class="tabcontent">
@@ -38,7 +117,7 @@
       {% if message %}
         <p class="message">{{ message | safe }}</p>
       {% endif %}
-      <button type="button" class="btn" onclick="openCollapsible();">Add Item</button>
+      <button type="button" class="btn" onclick="openItemForm();">Add Item</button>
       <div id="item_form" class="add_item_form">
         <form action="/add_item" method="POST" enctype="multipart/form-data">
           <div class="input1">
@@ -86,7 +165,9 @@
                 placeholder="eg. Paneer chunks marinated in spiced yogurt & grilled in a tandoor"></textarea>
             </div>
             <div class="right">
-              Picture
+              <div>
+                Picture
+              </div>
               <input id="item_picture" src="#" type="file" name="item_picture" accept="image/*" class="pic_button">
               <input type="submit" value="Save Item" class="btn"/>
             </div>
@@ -99,7 +180,11 @@
             <tr>
               <div class="item">
                 <div class="item_pic">
-                  <img class="pic" src="{{ item['Picture'] }}"/>
+                  {% if item['Picture'] %}
+                    <img src="{{ item['Picture'] }}"/>
+                  {% else %}
+                    <img src="../static/food-item-icon.png"/>
+                  {% endif %}
                 </div>
                 <div>
                   <div>
@@ -130,7 +215,7 @@
       <p>Update today's menu</p>
     </div>
 
-    <script>document.getElementById("defaultOpen").click();</script>
+    <script>openTab("{{ page }}_tab");</script>
     
   </body>
 </html> 

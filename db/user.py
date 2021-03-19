@@ -11,6 +11,7 @@ class User(db.Model):
     venmo_id = db.Column(db.String(200))
     address = db.Column(db.String(400))
     phone_number = db.Column(db.String(200))
+    profile_pic_url = db.Column(db.String(600))
     user_type = db.Column(db.String(200))
     created_at = db.Column(db.String(200))
 
@@ -23,6 +24,7 @@ class User(db.Model):
         self.phone_number = phone_number
         self.created_at = datetime.now()
         self.venmo_id = venmo_id
+        self.rating = 0
 
         if user_type == 'yes':
             self.user_type = 'chef'
@@ -50,9 +52,22 @@ def get_user_by_email(email):
         return None
     return users.first()
 
+
+def get_user_by_id(user_id):
+    users = db.session.query(User).filter(User.id == user_id)
+    if users.count() == 0:
+        return None
+    return users.first()
+
+
 def save_user(user):
     db.session.add(user)
     db.session.commit()
+
+
+def update_user():
+    db.session.commit()
+
 
 def save_chef(chef):
     db.session.add(chef)
