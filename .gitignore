@@ -1,5 +1,4 @@
 __pycache__/
-migrations/
 .vscode
 .DS_Store
 flask_session/
