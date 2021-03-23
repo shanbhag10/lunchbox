@@ -2,9 +2,11 @@
 body {
 	font-family: Garamond, Arial, Helvetica, sans-serif;
     color: #333;
-    background: #eeeeee;
+    background: #d8d6d6;
+    overflow: scroll;
 }
 
+/* vertical panel */
 .tab {
     float: left;
     border: 1px solid #ccc;
@@ -12,7 +14,7 @@ body {
     border-radius: 2px;
     width: 10%;
     min-width: 110px;
-    height: 90vh;
+    height: 98vh;
     box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
 }
 
@@ -43,13 +45,15 @@ body {
 
 .tabcontent {
     padding-left: 130px;
-    background-color: white;
+    display: block;
+    background-color: rgb(245, 245, 245);
     border: 1px solid #ccc;
-    height: 90vh;
+    height: 98vh;
     border-radius: 2px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
 }
 
+/* pages common */
 .btn {
 	display: block;
 	background: rgb(62, 163, 18);
@@ -70,13 +74,6 @@ tr {
 
 th, td {
     padding: 0 10px 5px 0;
-}
-
-.add_item_form {
-    display: none;
-    background-color: #eeeeee;
-    width: 95%;
-    padding: 3% 3% 3% 3%;
 }
 
 input[type='text'],
@@ -100,53 +97,94 @@ textarea {
     margin-bottom: 2%;
 }
 
-.item {
-    width: 95%;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.42);
-    min-height: 100px;
-    border-radius: 4px;
-}
-
 img {
     border-radius: 10px;
     margin: 1%;
     padding: 5px;
-    width: 90px;
-    height: 90px;
     object-fit: cover;
 }
 
+/* profile */
 .profile_pic {
     width: 150px;
     height: 150px;
 }
 
-.title {
-    padding-top: 1%;
-    margin-bottom: 1%;
-    font-size: 110%;
-    font-weight: bold;
+/* items */
+.add_item_form {
+    display: none;
+    background-color: #eeeeee;
+    width: 95%;
+    padding: 3% 3% 3% 3%;
+}
+
+.items_list {
+    height: 90vh;
+    overflow-y: scroll;
+    display: block;
+}
+
+.item {
+    width: 95%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.42);
+    min-height: 110px;
+    border-radius: 4px;
+    margin: 15px 0px 15px 2px;
+    overflow: scroll;
 }
 
 .item_pic {
-    width: 110px;
+    width: 100px;
+    height: 100px;
+    padding: 3px;
     float: left;
 }
 
-.cost {
-    margin-top: 2%;
-    font-size: 100%;
-    float: right;
-    padding: 0% 2%;
+.item_big {
+    padding-top: 5px;
+    margin-top: 2px;
+    font-size: 20px;
+    margin: 3px 0% 3px;
     font-weight: bold;
 }
 
-.description {
-    margin-top: 2px;
-    font-size: 80%;
+.item_small {
+    margin: 2px 0px 10px;
+    font-size: 13px;
+    font-style: italic;
+    color: grey;
 }
 
-@media screen and (max-width: 500px) {
+.item_content {
+    margin-left: 110px;
+    padding-left: 5px;
+}
+
+.item_title {
+    float: left;
+    width: 60%;
+}
+
+.item_cost {
+    float: right;
+    margin-right: 5px;
+    text-align: right;
+    width: 15%;
+}
+
+.item_description {
+    font-size: 75%;
+    min-width: 50%;
+    float: left;
+    color: gray
+}
+
+.item_description_text {
+    margin: 1% 0% 2% 0%;
+}
+
+
+@media screen and (max-width: 600px) {
     .tabcontent {
         padding-left: 80px;
         font-size: 3vw;
@@ -171,28 +209,44 @@ img {
         margin-bottom: 4%;
     }
 
-    .title {
-        padding-top: 2%;
-    }
-
-    img {
-        width: 60px;
-        height: 60px;
-    }
-
     .item {
-        min-height: 63px;
+        min-height: 72px;
+        margin: 12px 0px 12px 2px;
     }
 
     .item_pic {
         width: 65px;
-        float: left;
+        height: 65px;
+    }
+
+    .item_content {
+        margin-left: 68px;
     }
 
     .profile_pic {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
     }
+
+    .item_big {
+        padding-top: 5px;
+        margin-top: 2px;
+        font-size: 12px;
+    }
+    
+    .item_small {
+        margin: 2px 0px 3px;
+        font-size: 8px;
+    }
+
+    .item_title {
+        width: 50%;
+    }
+    
+    .item_cost {
+        margin-right: 5px;
+        width: 15%;
+    } 
 }
 
 @media screen and (min-width: 1000px) {
@@ -210,7 +264,20 @@ img {
     }
 
     .item {
+        width: 80%;
+    }
+
+    .item_title {
         width: 70%;
+    }
+
+    .item_description {
+        width: 82%;
+    }
+
+    .item_description_text {
+        margin: 0%;
+        font-size: 90%;
     }
 }
 

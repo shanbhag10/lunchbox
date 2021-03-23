@@ -14,7 +14,7 @@ def items_to_dict(items):
     for item in items:
         item_dict = {}
         item_dict['Name'] = item.name
-        item_dict['Type'] = item.item_type
+        item_dict['Item Type'] = item.item_type
         item_dict['Description'] = item.description
         item_dict['Cost'] = item.cost
         item_dict['Portion Size'] = item.portion_size

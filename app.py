@@ -65,7 +65,7 @@ def login():
         user = get_user_by_email(session['email'])
         session['user_id'] = user.id
         
-        return redirect(url_for('home', page='profile'))
+        return redirect(url_for('home', page='items'))
 
     return render_template('login.html')
 

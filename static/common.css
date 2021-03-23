@@ -22,3 +22,9 @@
     margin-top: 2rem;
     width: 90%;
 }
+
+input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}

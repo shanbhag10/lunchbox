@@ -26,79 +26,52 @@
       {% if message %}
         <p class="message">{{ message | safe }}</p>
       {% endif %}
-	    <table id="user_profile">
-        <tr>
-          <th>Name</th>
-          <td class="input1">{{ user_profile['First Name'] }} {{ user_profile['Last Name'] }}</td>
-        </tr>
-        <tr>
-          <th>Email</th>
-          <td>{{ user_profile['Email'] }}</td>
-        </tr>
-        {% if user_profile['Phone Number'] %}
-        <tr>
-          <th>Phone No</th>
-          <td>{{ user_profile['Phone Number'] }}</td>
-        </tr>
-        {% endif %}
-        {% if user_profile['Address'] %}
-        <tr>
-          <th>Address</th>
-          <td>{{ user_profile['Address'] }}</td>
-        </tr>
-        {% endif %}
 
-        {% if user_profile['Profile Picture'] %}
-        <div>
-          <img class="profile_pic" src="{{ user_profile['Profile Picture'] }}"/>
-        </div>
-        {% endif %}
+      {% if user_profile['Profile Picture'] %}
+      <div>
+        <img class="profile_pic" src="{{ user_profile['Profile Picture'] }}"/>
+      </div>
+      {% endif %}
+
+	    <table id="user_profile">
+        {% for key, value in user_profile.items() %}
+          {% if user_profile[key] and key != 'Profile Picture' %}
+            <tr>
+              <th>{{ key }}</th>
+              <td>{{ value }}</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
       </table>
+
       <button type="button" class="btn" onclick="openUserForm();">Update Profile</button>
+      
       <div id="user_form" class="add_item_form">
         <form action="/update_profile" method="POST" enctype="multipart/form-data">
           <div class="input1">
             <div class="left">
               First Name
-              <input
-                  type="text"
-                  name="first_name_in"
-                  value="{{ user_profile['First Name'] }}"
-              />
+              <input type="text" name="first_name_in" value="{{ user_profile['First Name'] }}"/>
             </div>
             <div class="right">
               Last Name
-              <input
-                  type="text"
-                  name="last_name_in"
-                  value="{{ user_profile['Last Name'] }}"
-              />
+              <input type="text" name="last_name_in" value="{{ user_profile['Last Name'] }}"/>
             </div>
           </div>
           <div class="input1">
             <div class="left">
               Phone Number
-              <input
-                  type="text"
-                  name="phone_number_in"
-                  value="{{ user_profile['Phone Number'] }}"
-              />
+              <input type="text" name="phone_number_in" value="{{ user_profile['Phone Number'] }}"/>
             </div>
             <div class="right">
               Venmo Id
-              <input
-                  type="text"
-                  name="venmo_id_in"
-                  value="{{ user_profile['Venmo Id'] }}"
-              />
+              <input type="text" name="venmo_id_in" value="{{ user_profile['Venmo Id'] }}"/>
             </div>
           </div>
           <div class="input1">
             <div class="left">
               Address
-              <textarea 
-                name="address_in" 
-                rows="4">{{ user_profile['Address'] }}</textarea>
+              <textarea name="address_in" rows="4">{{ user_profile['Address'] }}</textarea>
             </div>
             <div class="right">
               <div>
@@ -107,9 +80,10 @@
               <input id="profile_pic" src="#" type="file" name="profile_pic" accept="image/*" class="pic_button">
               <input type="submit" value="Save Profile" class="btn" onclick="openTab('profile_tab');"/>
             </div>
-        </div>
+          </div>
         </form>
       </div>
+
     </div>
 
     <div id="Items" class="tabcontent">
@@ -117,52 +91,35 @@
       {% if message %}
         <p class="message">{{ message | safe }}</p>
       {% endif %}
+
       <button type="button" class="btn" onclick="openItemForm();">Add Item</button>
+      
       <div id="item_form" class="add_item_form">
         <form action="/add_item" method="POST" enctype="multipart/form-data">
           <div class="input1">
             <div class="left">
               Name
-              <input
-                  type="text"
-                  name="item_name"
-                  placeholder="eg. Paneer Tikka"
-              />
+              <input type="text" name="item_name" placeholder="eg. Paneer Tikka"/>
             </div>
             <div class="right">
               Type
-              <input
-                  type="text"
-                  name="item_type"
-                  placeholder="eg. Entree"
-              />
+              <input type="text" name="item_type" placeholder="eg. Entree"/>
             </div>
           </div>
           <div class="input1">
             <div class="left">
               Cost ($)
-              <input
-                  type="text"
-                  name="cost"
-                  placeholder="eg. 5.99"
-              />
+              <input type="text" name="cost" placeholder="eg. 5.99"/>
             </div>
             <div class="right">
               Portion size
-              <input
-                  type="text"
-                  name="portion_size"
-                  placeholder="eg. 16 oz"
-              />
+              <input type="text" name="portion_size" placeholder="eg. 16 oz"/>
             </div>
           </div>
           <div class="input1">
             <div class="left">
               Description
-              <textarea 
-                name="description" 
-                rows="4" 
-                placeholder="eg. Paneer chunks marinated in spiced yogurt & grilled in a tandoor"></textarea>
+              <textarea name="description" rows="4" placeholder="eg. Paneer chunks marinated in spiced yogurt & grilled in a tandoor"></textarea>
             </div>
             <div class="right">
               <div>
@@ -171,33 +128,41 @@
               <input id="item_picture" src="#" type="file" name="item_picture" accept="image/*" class="pic_button">
               <input type="submit" value="Save Item" class="btn"/>
             </div>
-        </div>
+          </div>
         </form>
       </div>
-      <div>
+
+      <div class="items_list">
         <table id="items_list">
           {% for item in items_dicts %}
             <tr>
               <div class="item">
                 <div class="item_pic">
                   {% if item['Picture'] %}
-                    <img src="{{ item['Picture'] }}"/>
+                    <img class="item_pic" src="{{ item['Picture'] }}"/>
                   {% else %}
-                    <img src="../static/food-item-icon.png"/>
+                    <img class="item_pic" src="../static/food-item-icon.png"/>
                   {% endif %}
                 </div>
-                <div>
-                  <div>
-                    <p class="cost"> ${{ item["Cost"] }} </p>
-                    <p class="title"> {{ item["Name"] }} </p>
+                <div class="item_content">
+                  <div class="item_title">
+                    <p class="item_big"> {{ item["Name"] }} </p>
+                    <p class="item_small"> {{ item["Item Type"] }} </p>  
                   </div>
-                  <p class="description"> {{ item["Description"] }} </p>  
+                  <div class="item_cost">
+                    <p class="item_big"> ${{ item["Cost"] }} </p>
+                    <p class="item_small"> {{ item["Portion Size"] }} </p>
+                  </div>
+                  <div class="item_description">
+                    <p class="item_description_text"> {{ item["Description"] }} </p>
+                  </div>
                 </div>
               </div>
             </tr>
           {% endfor %}
         </table>
       </div>
+      
     </div>
 
     <div id="Orders" class="tabcontent">
