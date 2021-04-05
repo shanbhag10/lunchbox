@@ -80,10 +80,11 @@ def home(page):
 
     meals = get_meals_for_chef(session['user_id'])
     meals_dicts = meals_to_dict(meals)
-    print(meals_dicts)
 
-    return render_template('chef_home.html', user_profile=user_profile, items_dicts=items_dicts, meals_dicts=meals_dicts, page=page)
-
+    if user.user_type == 'chef':
+        return render_template('chef_home.html', user_profile=user_profile, items_dicts=items_dicts, meals_dicts=meals_dicts, page=page)
+    
+    return render_template('user_home.html', user_profile=user_profile, items_dicts=items_dicts, meals_dicts=meals_dicts, page=page)
 
 @app.route('/add_item', methods=['POST', 'GET'])
 def add_item():

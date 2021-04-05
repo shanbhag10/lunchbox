@@ -44,7 +44,7 @@ body {
 }
 
 .tabcontent {
-    padding-left: 130px;
+    padding-left: 40px;
     display: block;
     background-color: rgb(245, 245, 245);
     border: 1px solid #ccc;
@@ -198,7 +198,7 @@ img {
 
 @media screen and (max-width: 600px) {
     .tabcontent {
-        padding-left: 80px;
+        padding-left:15px;
         font-size: 3vw;
     }
 
@@ -267,7 +267,6 @@ img {
 
 @media screen and (min-width: 1000px) {
     .tabcontent {
-        padding-left: 12%;
         font-size: 120%;
     }
 
