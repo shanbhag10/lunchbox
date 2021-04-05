@@ -1,8 +1,8 @@
 def user_to_dict(user):
     user_profile = {}
-    user_profile['Email'] = user.email
     user_profile['First Name'] = user.first_name
     user_profile['Last Name'] = user.last_name
+    user_profile['Email'] = user.email
     user_profile['Phone Number'] = user.phone_number
     user_profile['Address'] = user.address
     user_profile['Venmo Id'] = user.venmo_id

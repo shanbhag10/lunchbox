@@ -80,8 +80,12 @@ def run_migrations_online():
             **current_app.extensions['migrate'].configure_args
         )
 
-        with context.begin_transaction():
-            context.run_migrations()
+        try:
+            with context.begin_transaction():
+                context.run_migrations()
+        except Exception as exception:
+            logger.error(exception)
+            raise exception
 
 
 if context.is_offline_mode():
