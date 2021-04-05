@@ -65,7 +65,7 @@ def login():
         user = get_user_by_email(session['email'])
         session['user_id'] = user.id
         
-        return redirect(url_for('home', page='items'))
+        return redirect(url_for('home', page='todays_menu'))
 
     return render_template('login.html')
 
@@ -78,7 +78,11 @@ def home(page):
     items = get_items_for_chef(session['user_id'])
     items_dicts = items_to_dict(items)
 
-    return render_template('chef_home.html', user_profile=user_profile, items_dicts=items_dicts, page=page)
+    meals = get_meals_for_chef(session['user_id'])
+    meals_dicts = meals_to_dict(meals)
+    print(meals_dicts)
+
+    return render_template('chef_home.html', user_profile=user_profile, items_dicts=items_dicts, meals_dicts=meals_dicts, page=page)
 
 
 @app.route('/add_item', methods=['POST', 'GET'])
@@ -94,8 +98,14 @@ def update_profile():
     if request.method == 'POST':
         pic_url = upload_pic(request.files['profile_pic'], session['user_id'], request.form['first_name_in'])
         update_user(request.form, session['user_id'], pic_url)
-        return redirect(url_for('home', page='profile'))
+        return redirect(url_for('home', page='profile', message='Successfully updated profile'))
 
+
+@app.route('/add_meal', methods=['POST', 'GET'])
+def add_meal():
+    if request.method == 'POST':
+        add_new_meal(request.form, session['user_id'])
+        return redirect(url_for('home', page='todays_menu'))
 
 if __name__ == '__main__':
     app.run(debug=True)

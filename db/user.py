@@ -13,7 +13,8 @@ class User(db.Model):
     phone_number = db.Column(db.String(200))
     profile_pic_url = db.Column(db.String(600))
     user_type = db.Column(db.String(200))
-    created_at = db.Column(db.String(200))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __init__(self, first_name, last_name, email, password, address, phone_number, user_type, venmo_id, about):
         self.first_name = first_name
@@ -23,6 +24,7 @@ class User(db.Model):
         self.address = address
         self.phone_number = phone_number
         self.created_at = datetime.now()
+        self.updated_at = datetime.now()
         self.venmo_id = venmo_id
         self.rating = 0
 

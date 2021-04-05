@@ -51,6 +51,7 @@ body {
     height: 98vh;
     border-radius: 2px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
+    overflow: scroll;
 }
 
 /* pages common */
@@ -77,6 +78,8 @@ th, td {
 }
 
 input[type='text'],
+input[type='time'],
+input[type='date'],
 textarea {
 	display: block;
 	width: 100%;
@@ -88,13 +91,22 @@ textarea {
     max-width: 330px;
 }
 
+input[type=checkbox]
+{
+  -webkit-appearance:checkbox;
+}
+
+.menu_check_even {
+    margin-left: 50%;
+}
+
 .pic_button {
     font-size: 60%;
     margin-bottom: 5%;
 }
 
 .input1 {
-    margin-bottom: 2%;
+    margin-top: 2%;
 }
 
 img {
@@ -104,6 +116,13 @@ img {
     object-fit: cover;
 }
 
+.add_form {
+    display: none;
+    background-color: #eeeeee;
+    width: 95%;
+    padding: 3% 3% 3% 3%;
+}
+
 /* profile */
 .profile_pic {
     width: 150px;
@@ -111,13 +130,6 @@ img {
 }
 
 /* items */
-.add_item_form {
-    display: none;
-    background-color: #eeeeee;
-    width: 95%;
-    padding: 3% 3% 3% 3%;
-}
-
 .items_list {
     height: 90vh;
     overflow-y: scroll;
@@ -240,13 +252,17 @@ img {
     }
 
     .item_title {
-        width: 50%;
+        width: 70%;
     }
     
     .item_cost {
         margin-right: 5px;
-        width: 15%;
+        width: 25%;
     } 
+
+    .item_description {
+        font-size: 9px;
+    }
 }
 
 @media screen and (min-width: 1000px) {

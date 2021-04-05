@@ -44,9 +44,9 @@
         {% endfor %}
       </table>
 
-      <button type="button" class="btn" onclick="openUserForm();">Update Profile</button>
+      <button type="button" class="btn" onclick="openForm('user_form');">Update Profile</button>
       
-      <div id="user_form" class="add_item_form">
+      <div id="user_form" class="add_form">
         <form action="/update_profile" method="POST" enctype="multipart/form-data">
           <div class="input1">
             <div class="left">
@@ -92,9 +92,9 @@
         <p class="message">{{ message | safe }}</p>
       {% endif %}
 
-      <button type="button" class="btn" onclick="openItemForm();">Add Item</button>
+      <button type="button" class="btn" onclick="openForm('item_form');">Add Item</button>
       
-      <div id="item_form" class="add_item_form">
+      <div id="item_form" class="add_form">
         <form action="/add_item" method="POST" enctype="multipart/form-data">
           <div class="input1">
             <div class="left">
@@ -162,7 +162,7 @@
           {% endfor %}
         </table>
       </div>
-      
+
     </div>
 
     <div id="Orders" class="tabcontent">
@@ -172,12 +172,92 @@
 
     <div id="Dashboard" class="tabcontent">
       <h2>Dashboard</h2>
-      <p>Your performace</p>
+      <p>Your performace (Coming Soon)</p>
     </div>
 
     <div id="Todays_Menu" class="tabcontent">
       <h2>Today's Menu</h2>
-      <p>Update today's menu</p>
+
+      {% if message %}
+        <p class="message">{{ message | safe }}</p>
+      {% endif %}
+
+      <button type="button" class="btn" onclick="openForm('meal_form');">Add Meal</button>
+      <div id="meal_form" class="add_form">
+        <form action="/add_meal" method="POST" enctype="multipart/form-data">
+          <div class="input1">
+            Date <br>
+            <input type="date" name="meal_date"/>
+          </div>
+          <div class="input1">
+            <div class="left">
+              Pickup start time 
+              <input type="time" name="pickup_start_time"/>
+            </div>
+            <div class="right">
+              Pickup end time 
+              <input type="time" name="pickup_end_time"/>
+            </div>
+          </div>
+          <div class="input1" style="margin-top: 15px; font-weight: bold;">
+            Select Item
+          </div>
+          <div class="input1">
+            <table>
+              {% for item in items_dicts %}
+                {% if loop.index % 2 != 0 %}
+                  <tr>
+                    <td class="menu_check_even">
+                      <input type="checkbox" id="{{ item['Id'] }}" name="item_{{ item['Id'] }}" value="{{ item['Id'] }}"/>
+                      <label for="{{ item['Id'] }}"> {{ item['Name'] }}</label>
+                    </td>
+                {% else %}
+                    <td>
+                      <input type="checkbox" id="{{ item['Id'] }}" name="item_{{ item['Id'] }}" value="{{ item['Id'] }}"/>
+                      <label for="{{ item['Id'] }}"> {{ item['Name'] }}</label>
+                    </td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+            </table>
+          </div>
+          <div class="input1">
+            <input type="submit" value="Save Meal" class="btn"/>
+          </div>
+        </form>
+      </div>
+      <div>
+        {% for meal in meals_dicts %}
+          <tr>
+            <h2>{{ meal['Date'] }}</h2>
+            <h3 style="color: rgb(50, 163, 1);">{{ meal['Pickup Start Time'] }} - {{ meal['Pickup End Time'] }}</h3>
+            {% for item in meal['Items'] %}
+              <div class="item">
+                <div class="item_pic">
+                  {% if item['Picture'] %}
+                    <img class="item_pic" src="{{ item['Picture'] }}"/>
+                  {% else %}
+                    <img class="item_pic" src="../static/food-item-icon.png"/>
+                  {% endif %}
+                </div>
+                <div class="item_content">
+                  <div class="item_title">
+                    <p class="item_big"> {{ item["Name"] }} </p>
+                    <p class="item_small"> {{ item["Item Type"] }} </p>  
+                  </div>
+                  <div class="item_cost">
+                    <p class="item_big"> ${{ item["Cost"] }} </p>
+                    <p class="item_small"> {{ item["Portion Size"] }} </p>
+                  </div>
+                  <div class="item_description">
+                    <p class="item_description_text"> {{ item["Description"] }} </p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </div>
     </div>
 
     <script>openTab("{{ page }}_tab");</script>

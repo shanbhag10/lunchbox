@@ -12,13 +12,8 @@ function openPage(evt, page) {
     evt.currentTarget.className += " active";
 }
 
-function openItemForm() {
-    var x = document.getElementById("item_form");
-    return openCollapsible(x)
-}
-
-function openUserForm() {
-    var x = document.getElementById("user_form");
+function openForm(formId) {
+    var x = document.getElementById(formId);
     return openCollapsible(x)
 }
 
