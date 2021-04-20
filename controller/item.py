@@ -1,5 +1,6 @@
 import db.item as item_db
 from db.item import *
+import datetime
 
 def create_new_item(request, chef_id, pic_url):
     item = item_db.Item(
@@ -28,3 +29,6 @@ def add_new_meal(request, user_id):
 
 def get_meals_for_chef(chef_id):
     return item_db.get_meals_by_chef(chef_id)
+
+def get_upcoming_meals():
+    return item_db.get_upcoming_meals()

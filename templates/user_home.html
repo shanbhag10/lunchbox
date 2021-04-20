@@ -92,35 +92,49 @@
       {% endif %}
 
       <div>
-        {% for meal in meals_dicts %}
-          <tr>
-            <h2>{{ meal['Date'] }}</h2>
-            <h3 style="color: rgb(50, 163, 1);">{{ meal['Pickup Start Time'] }} - {{ meal['Pickup End Time'] }}</h3>
-            {% for item in meal['Items'] %}
-              <div class="item">
-                <div class="item_pic">
-                  {% if item['Picture'] %}
-                    <img class="item_pic" src="{{ item['Picture'] }}"/>
-                  {% else %}
-                    <img class="item_pic" src="../static/food-item-icon.png"/>
-                  {% endif %}
+        {% for chef_id, meals in meals_dicts.items() %}
+          <div class="name_panel">
+            <div>
+              {% if chefs[chef_id]['Profile Picture'] %}
+                <img class="chef_pic" src="{{ chefs[chef_id]['Profile Picture'] }}"/>
+              {% else %}
+                <img class="chef_pic" src="../static/chef-profile-icon.png"/>
+              {% endif %}
+            </div>
+            <div class="chef_name">
+              <h2>Chef {{ chefs[chef_id]['First Name'] }}</h2>
+            </div>
+          </div>
+          {% for meal in meals %}
+            <tr>
+              <h3><span>{{ meal['Date'] }} : </span><span style="color: rgb(50, 163, 1);">{{ meal['Pickup Start Time'] }} - {{ meal['Pickup End Time'] }}</span></h3>
+              {% for item in meal['Items'] %}
+                <div class="item">
+                  <div class="item_pic">
+                    {% if item['Picture'] %}
+                      <img class="item_pic" src="{{ item['Picture'] }}"/>
+                    {% else %}
+                      <img class="item_pic" src="../static/food-item-icon.png"/>
+                    {% endif %}
+                  </div>
+                  <div class="item_content">
+                    <div class="item_title">
+                      <p class="item_big"> {{ item["Name"] }} </p>
+                      <p class="item_small"> {{ item["Item Type"] }} </p>  
+                    </div>
+                    <div class="item_cost">
+                      <p class="item_big"> ${{ item["Cost"] }} </p>
+                      <p class="item_small"> {{ item["Portion Size"] }} </p>
+                    </div>
+                    <div class="item_description">
+                      <p class="item_description_text"> {{ item["Description"] }} </p>
+                    </div>
+                  </div>
                 </div>
-                <div class="item_content">
-                  <div class="item_title">
-                    <p class="item_big"> {{ item["Name"] }} </p>
-                    <p class="item_small"> {{ item["Item Type"] }} </p>  
-                  </div>
-                  <div class="item_cost">
-                    <p class="item_big"> ${{ item["Cost"] }} </p>
-                    <p class="item_small"> {{ item["Portion Size"] }} </p>
-                  </div>
-                  <div class="item_description">
-                    <p class="item_description_text"> {{ item["Description"] }} </p>
-                  </div>
-                </div>
-              </div>
-            {% endfor %}
-          </tr>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+          <div style="height: 20px;"></div>
         {% endfor %}
       </div>
     </div>
@@ -132,7 +146,7 @@
 
     <div id="Dashboard" class="tabcontent">
         <h2>Dashboard</h2>
-        <p>Your performace (Coming Soon)</p>
+        <p>Your food analysis (Coming Soon)</p>
     </div>
 
     <script>openTab("{{ page }}_tab");</script>

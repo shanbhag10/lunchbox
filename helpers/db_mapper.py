@@ -26,16 +26,30 @@ def items_to_dict(items):
     return item_dicts
 
 
-def meals_to_dict(meals):
+def meals_by_chef(meals):
+    meals_by_chef = {}
+
+    for meal in meals:
+        if meal.chef_id not in meals_by_chef:
+            meals_by_chef[meal.chef_id] = []
+        meals_by_chef[meal.chef_id].append(meal_to_dict(meal))
+
+    return meals_by_chef
+
+
+def meals_to_dicts(meals):
     meals_dicts = []
     for meal in meals:
-        meals_dict = {}
-        meals_dict['Id'] = meal.id
-        meals_dict['Date'] = meal.date
-        meals_dict['Chef Id'] = meal.chef_id
-        meals_dict['Pickup Start Time'] = meal.pickup_start_time
-        meals_dict['Pickup End Time'] = meal.pickup_end_time
-        meals_dict['Items'] = items_to_dict(meal.items)
-        meals_dicts.append(meals_dict)
-
+        meals_dicts.append(meal_to_dict(meal))
     return meals_dicts
+
+
+def meal_to_dict(meal):
+    meal_dict = {}
+    meal_dict['Id'] = meal.id
+    meal_dict['Date'] = meal.date
+    meal_dict['Chef Id'] = meal.chef_id
+    meal_dict['Pickup Start Time'] = meal.pickup_start_time.strftime("%I:%M %p")
+    meal_dict['Pickup End Time'] = meal.pickup_end_time.strftime("%I:%M %p")
+    meal_dict['Items'] = items_to_dict(meal.items)
+    return meal_dict

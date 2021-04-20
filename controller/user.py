@@ -1,5 +1,6 @@
 import db.user as user_db
 from db.user import *
+from helpers.db_mapper import *
 
 def create_new_user(request):
     user = user_db.User(
@@ -35,7 +36,15 @@ def get_user_by_email(email):
 
 
 def get_user_by_id(user_id):
-    return user_db.get_user_by_email(user_id)
+    return user_db.get_user_by_id(user_id)
+
+
+def get_users_by_ids(user_ids):
+    users = user_db.get_users_by_ids(user_ids)
+    users_by_ids = {}
+    for user in users:
+        users_by_ids[user.id] = user_to_dict(user)
+    return users_by_ids
 
 
 def update_user(request, user_id, pic_url):

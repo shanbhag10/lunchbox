@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from app import db
 from sqlalchemy.orm import relationship, backref
 
@@ -75,7 +75,11 @@ def get_items_by_chef(chef_id):
 
 
 def get_meals_by_chef(chef_id):
-    return db.session.query(Meal).filter(Meal.chef_id == chef_id) 
+    return db.session.query(Meal).filter(Meal.chef_id == chef_id).filter(Meal.date >= date.today())
+
+
+def get_upcoming_meals():
+    return db.session.query(Meal).filter(Meal.date >= date.today())
 
 
 def save_item(item):

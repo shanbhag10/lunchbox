@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from datetime import datetime
+import datetime
 import os
 
 app = Flask(__name__)
@@ -64,8 +64,13 @@ def login():
         session['email'] = email
         user = get_user_by_email(session['email'])
         session['user_id'] = user.id
+        session['date'] = datetime.today
         
-        return redirect(url_for('home', page='todays_menu'))
+        page='meals'
+        if user.user_type == 'chef':
+            page = 'todays_menu'
+
+        return redirect(url_for('home', page=page))
 
     return render_template('login.html')
 
@@ -75,16 +80,21 @@ def home(page):
     user = get_user_by_email(session['email'])
     user_profile = user_to_dict(user)
 
-    items = get_items_for_chef(session['user_id'])
-    items_dicts = items_to_dict(items)
-
-    meals = get_meals_for_chef(session['user_id'])
-    meals_dicts = meals_to_dict(meals)
-
     if user.user_type == 'chef':
+        items = get_items_for_chef(session['user_id'])
+        items_dicts = items_to_dict(items)
+
+        meals = get_meals_for_chef(session['user_id'])
+        meals_dicts = meals_to_dicts(meals)
+
         return render_template('chef_home.html', user_profile=user_profile, items_dicts=items_dicts, meals_dicts=meals_dicts, page=page)
     
-    return render_template('user_home.html', user_profile=user_profile, items_dicts=items_dicts, meals_dicts=meals_dicts, page=page)
+    meals = get_upcoming_meals()
+    meals_dicts = meals_by_chef(meals)
+
+    chefs = get_users_by_ids(meals_dicts.keys())
+
+    return render_template('user_home.html', user_profile=user_profile, meals_dicts=meals_dicts, chefs=chefs, page=page)
 
 @app.route('/add_item', methods=['POST', 'GET'])
 def add_item():

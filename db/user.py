@@ -62,6 +62,10 @@ def get_user_by_id(user_id):
     return users.first()
 
 
+def get_users_by_ids(user_ids):
+    return db.session.query(User).filter(User.id.in_(user_ids))
+    
+
 def save_user(user):
     db.session.add(user)
     db.session.commit()
