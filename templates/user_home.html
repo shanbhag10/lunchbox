@@ -107,7 +107,7 @@
           </div>
           {% for meal in meals %}
             <tr>
-              <h3><span>{{ meal['Date'] }} : </span><span style="color: rgb(50, 163, 1);">{{ meal['Pickup Start Time'] }} - {{ meal['Pickup End Time'] }}</span></h3>
+              <h3><span>{{ meal['Date'] }} : </span><span class="green">{{ meal['Pickup Start Time'] }} - {{ meal['Pickup End Time'] }}</span></h3>
               {% for item in meal['Items'] %}
                 <div class="item">
                   <div class="item_pic">

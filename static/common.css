@@ -38,3 +38,7 @@ input[type=radio]
 {
   -webkit-appearance:radio;
 }
+
+.green {
+    color: rgb(50, 163, 1);
+}
