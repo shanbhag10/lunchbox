@@ -105,8 +105,8 @@ def home(page):
     orders = get_orders_for_user(session['user_id'])
     
     chefs = []
+    orders_dicts = {}
     if orders != None:
-        orders_dicts = {}
         chefs_for_orders = {}
         for order in orders:
             chefs_for_orders[order.id] = get_user_by_id(order.chef_id)
