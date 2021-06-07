@@ -82,6 +82,10 @@ def get_upcoming_meals():
     return db.session.query(Meal).filter(Meal.date >= date.today())
 
 
+def get_items_by_ids(ids):
+    return db.session.query(Item).filter(Item.id.in_(ids))
+
+
 def save_item(item):
     db.session.add(item)
     db.session.commit()

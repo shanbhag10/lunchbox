@@ -34,7 +34,7 @@ def place_new_order(request, user_id):
     items = get_items_by_ids([*item_qty_dict])
 
     total_cost = 0
-    for item in items.values():
+    for item in items:
         if item.id in item_qty_dict:
             total_cost += item.cost * item_qty_dict[item.id]
     order.total_cost = total_cost

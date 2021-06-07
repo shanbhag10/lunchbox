@@ -34,3 +34,7 @@ def get_meals_for_chef(chef_id):
 
 def get_upcoming_meals():
     return item_db.get_upcoming_meals()
+
+
+def get_items_by_ids(ids):
+    return item_db.get_items_by_ids(ids)
