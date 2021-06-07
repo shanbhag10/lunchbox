@@ -3,8 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />  
     <link rel="stylesheet" href="../static/common.css" />
     <link rel="stylesheet" href="../static/home.css" />
     <link rel="shortcut icon" href="../static/logo.jpeg" type="image/png">
@@ -32,7 +31,7 @@
       </div>
       {% endif %}
 
-	    <table id="user_profile">
+	  <table id="user_profile">
         {% for key, value in user_profile.items() %}
           {% if user_profile[key] and key != 'Profile Picture' %}
             <tr>
@@ -107,7 +106,49 @@
           </div>
           {% for meal in meals %}
             <tr>
-              <h3><span>{{ meal['Date'] }} : </span><span class="green">{{ meal['Pickup Start Time'] }} - {{ meal['Pickup End Time'] }}</span></h3>
+              <h3 class="meal_time">
+                <span>{{ meal['Date'] }} : </span>
+                <span class="green">{{ meal['Pickup Start Time'] }} - {{ meal['Pickup End Time'] }}</span>
+                <span> 
+                  <button type="button" class="btn place_order" onclick="openForm('order_form');">Pick</button>
+                </span>
+              </h3>
+      
+                <div id="order_form" class="add_form">
+                    <form action="/place_order" method="POST" enctype="multipart/form-data">
+                        <div class="input1">
+                            <div class="left">
+                                <b>Item</b>
+                            </div>
+                                
+                            <div class="right">
+                                <b>Quantity</b>
+                            </div>
+                        </div>
+                        {% for item in meal['Items'] %}
+                            <div class="input1">
+                                <div class="left">
+                                    <p style="margin-top: 3px;">{{ loop.index }}. {{ item["Name"] }}</p>
+                                </div>
+                                    
+                                <div class="right">
+                                    <input type="number" id="{{ item['Id'] }}_qty" name="{{ item['Id'] }}_qty" max="10" min="0">
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="input1">
+                            <b>Notes:</b>
+                            <textarea name="{{ meal['Id'] }}_{{ chef_id }}_notes_in" rows="2"></textarea>
+                        </div>
+                        <div class="input1">
+                            <b>Pickup Time:</b>
+                            <input type="time" name="pickup_time_in"/>
+                        </div>
+                        <input type="submit" value="Place Order" class="btn" onclick="openTab('profile_tab');"/>
+                                
+                    </form>
+                </div>
+
               {% for item in meal['Items'] %}
                 <div class="item">
                   <div class="item_pic">
@@ -141,8 +182,46 @@
 
     <div id="Orders" class="tabcontent">
         <h2>Orders</h2>
-        <p>View recent orders here</p>
-    </div>
+        {% if orders_dicts %}
+          <h3>Current Orders ({{orders_dicts['Placed']|length}})</h3>
+            {% for orders_dict in orders_dicts['Placed'] %}
+            <div class="order">
+              {% if orders_dict['Chef']['Profile Picture'] %}
+              <div>
+                <img class="order_pic" src="{{ orders_dict['Chef']['Profile Picture'] }}"/>
+              </div>  
+              {% endif %}
+              <h4>Order Id: <span class="green">#{{ orders_dict['Id'] }}</span></h4>
+              <p> <b>Chef:</b> {{ orders_dict['Chef']['First Name'] }} {{ orders_dict['Chef']['Last Name'] }}</p>
+              <p> <b>Pickup Time:</b> {{ orders_dict['Pickup Time'] }}</p>
+              <p> <b>Pickup Location:</b> {{ orders_dict['Chef']['Address'] }}</p>
+              <p> <b>Items: </b> </p>
+              <table class="order_items">
+                <tr>
+                  <th>Item Name</th>
+                  <th>Quantity</th>
+                </tr>
+                {% for item in orders_dict['Order Items'] %}
+                <tr>
+                  <td>{{ item['Item Name']}}</td>
+                  <td>{{ item['Quantity']}}</td>
+                </tr>
+                {% endfor %}
+              </table>
+              {% if orders_dict['Notes'] %}
+              <p> <b>Notes:</b> {{ orders_dict['Notes'] }}</p>
+              {% endif %}
+              <p> <b>Total Cost:</b> {{ orders_dict['Total Cost'] }}</p>
+             
+              {% for order_items in orders_dicts['Order Items'] %}
+                <h6></h6>
+              {% endfor %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No new orders</p>
+        {% endif %}
+      </div>
 
     <div id="Dashboard" class="tabcontent">
         <h2>Dashboard</h2>

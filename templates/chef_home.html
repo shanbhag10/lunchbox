@@ -167,7 +167,44 @@
 
     <div id="Orders" class="tabcontent">
       <h2>Orders</h2>
-      <p>View recent orders here</p>
+      {% if orders_dicts %}
+        <h3>New Orders ({{orders_dicts['Placed']|length}})</h3>
+          {% for orders_dict in orders_dicts['Placed'] %}
+          <div class="order">
+            {% if orders_dict['User']['Profile Picture'] %}
+            <div>
+              <img class="order_pic" src="{{ orders_dict['User']['Profile Picture'] }}"/>
+            </div>  
+            {% endif %}
+            <h4>Order Id: <span class="green">#{{ orders_dict['Id'] }}</span></h4>
+            <p> <b>Name:</b> {{ orders_dict['User']['First Name'] }} {{ orders_dict['User']['Last Name'] }}</p>
+            <p> <b>Pickup Time:</b> {{ orders_dict['Pickup Time'] }}</p>
+            <p> <b>Items: </b> </p>
+            <table class="order_items">
+              <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+              </tr>
+              {% for item in orders_dict['Order Items'] %}
+              <tr>
+                <td>{{ item['Item Name']}}</td>
+                <td>{{ item['Quantity']}}</td>
+              </tr>
+              {% endfor %}
+            </table>
+            {% if orders_dict['Notes'] %}
+            <p> <b>Notes:</b> {{ orders_dict['Notes'] }}</p>
+            {% endif %}
+            <p> <b>Total Cost:</b> {{ orders_dict['Total Cost'] }}</p>
+           
+            {% for order_items in orders_dicts['Order Items'] %}
+              <h6></h6>
+            {% endfor %}
+          </div>
+          {% endfor %}
+      {% else %}
+          <p>No new orders</p>
+      {% endif %}
     </div>
 
     <div id="Dashboard" class="tabcontent">

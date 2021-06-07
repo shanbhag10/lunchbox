@@ -6,7 +6,7 @@ class Item(db.Model):
     __tablename__ = 'items'
     id = db.Column(db.Integer, primary_key=True)
     chef_id = db.Column(db.Integer)
-    name = db.Column(db.String(200))
+    name = db.Column(db.String(200), unique=True, index=True)
     item_type = db.Column(db.String(200))
     cost = db.Column(db.Float)
     description = db.Column(db.Text())

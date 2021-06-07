@@ -23,6 +23,11 @@ A web app that connects local home chefs to busy folks for healthy home-made foo
 `flask db migrate`
 `flask db upgrade`
 
+### create tables
+`from app import db`
+`db.create_all()`
+`exit()`
+
 ```
 ALTER TABLE meals ADD COLUMN create_time_holder TIMESTAMP without time zone NULL;
 

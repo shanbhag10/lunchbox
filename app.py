@@ -22,8 +22,10 @@ Session(app)
 
 from db.user import *
 from db.item import *
+from db.order import *
 from controller.user import *
 from controller.item import *
+from controller.order import *
 from helpers.validator import *
 from helpers.db_mapper import *
 from helpers.s3 import *
@@ -87,14 +89,34 @@ def home(page):
         meals = get_meals_for_chef(session['user_id'])
         meals_dicts = meals_to_dicts(meals)
 
-        return render_template('chef_home.html', user_profile=user_profile, items_dicts=items_dicts, meals_dicts=meals_dicts, page=page)
+        users_for_orders = {}
+        orders_dicts = {}
+        orders = get_orders_for_chef(session['user_id'])
+        if orders != None:
+            for order in orders:
+                users_for_orders[order.id] = get_user_by_id(order.user_id)
+
+            orders_dicts = orders_to_dicts(orders, users_for_orders)
+
+        return render_template('chef_home.html', user_profile=user_profile, items_dicts=items_dicts, meals_dicts=meals_dicts, page=page, orders_dicts=orders_dicts)
     
     meals = get_upcoming_meals()
     meals_dicts = meals_by_chef(meals)
+    orders = get_orders_for_user(session['user_id'])
+    
+    chefs = []
+    if orders != None:
+        orders_dicts = {}
+        chefs_for_orders = {}
+        for order in orders:
+            chefs_for_orders[order.id] = get_user_by_id(order.chef_id)
+
+        orders_dicts = orders_to_dicts(orders, chefs_for_orders)
 
     chefs = get_users_by_ids(meals_dicts.keys())
 
-    return render_template('user_home.html', user_profile=user_profile, meals_dicts=meals_dicts, chefs=chefs, page=page)
+    return render_template('user_home.html', user_profile=user_profile, meals_dicts=meals_dicts, chefs=chefs, page=page, orders_dicts=orders_dicts)
+
 
 @app.route('/add_item', methods=['POST', 'GET'])
 def add_item():
@@ -117,6 +139,13 @@ def add_meal():
     if request.method == 'POST':
         add_new_meal(request.form, session['user_id'])
         return redirect(url_for('home', page='todays_menu'))
+
+
+@app.route('/place_order', methods=['POST', 'GET'])
+def place_order():
+    if request.method == 'POST':
+        place_new_order(request.form, session['user_id'])
+        return redirect(url_for('home', page='orders'))
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -8,7 +8,6 @@ body {
 /* vertical panel */
 .tab {
     float: left;
-    border: 1px solid #ccc;
     background-color: rgb(50, 163, 1);
     border-radius: 2px;
     width: 10%;
@@ -46,7 +45,6 @@ body {
     padding-left: 40px;
     display: block;
     background-color: rgb(245, 245, 245);
-    border: 1px solid #ccc;
     height: 98vh;
     border-radius: 2px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
@@ -79,6 +77,7 @@ th, td {
 input[type='text'],
 input[type='time'],
 input[type='date'],
+input[type='number'],
 textarea {
 	display: block;
 	width: 100%;
@@ -93,6 +92,10 @@ textarea {
 input[type=checkbox]
 {
   -webkit-appearance:checkbox;
+}
+
+input[type='number'] {
+    width: 40%;
 }
 
 .heading {
@@ -132,6 +135,7 @@ img {
 .profile_pic {
     width: 150px;
     height: 150px;
+    margin-bottom: 20px;
 }
 
 /* items */
@@ -150,6 +154,38 @@ img {
     overflow: scroll;
 }
 
+.order {
+    width: 95%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.42);
+    min-height: 110px;
+    border-radius: 4px;
+    margin: 15px 0px 15px 2px;
+    padding: 0px 20px 0px 20px;
+    overflow: scroll;
+    max-width: 600px;
+}
+
+.order_items,
+table.order_items td, 
+table.order_items tr, 
+table.order_items th {
+    border-collapse: collapse;
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+}
+
+.order_pic {
+    float: right;
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    margin-top: 15px;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 1px;
+}
+
 .item_pic {
     width: 100px;
     height: 100px;
@@ -163,7 +199,7 @@ img {
     float: left;
     border-radius: 50%;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
     padding: 0;
     margin: 8px;
 }
@@ -221,6 +257,15 @@ img {
     font-size: 14px;
 }
 
+.meal_time {
+    padding-top: 10px;
+}
+
+.place_order {
+    float: right;
+    margin: 0px 4vw 15px 0px;
+}
+
 
 @media screen and (max-width: 600px) {
     .tabcontent {
@@ -264,6 +309,12 @@ img {
         margin: 6px;
     }
 
+    .order_pic {
+        float: right;
+        width: 40px;
+        height: 40px;
+    }
+
     .chef_name {
         font-size: 11px;
     }
@@ -300,6 +351,10 @@ img {
     .item_description {
         font-size: 9px;
     }
+
+    .order {
+        padding: 0px 10px 0px 10px;
+    }
 }
 
 @media screen and (min-width: 1000px) {
@@ -313,10 +368,6 @@ img {
 
     .add_item_form {
         padding: 20px 20px;
-    }
-
-    .item {
-        width: 80%;
     }
 
     .item_title {

@@ -53,3 +53,41 @@ def meal_to_dict(meal):
     meal_dict['Pickup End Time'] = meal.pickup_end_time.strftime("%I:%M %p")
     meal_dict['Items'] = items_to_dict(meal.items)
     return meal_dict
+
+
+def orders_to_dicts(orders, users):
+    orders_dicts = {}
+    for order in orders:
+        if order.status not in orders_dicts:
+            orders_dicts[order.status] = []
+        orders_dicts[order.status].append(order_to_dict(order, users[order.id]))
+
+    return orders_dicts
+
+
+def order_to_dict(order, user):
+    order_dict = {}
+    order_dict['Id'] = order.id
+    if user.user_type == 'chef':
+        order_dict['Chef'] = user_to_dict(user)
+    else:
+        order_dict['User'] = user_to_dict(user)
+    order_dict['Status'] = order.status
+    order_dict['Notes'] = order.notes
+    order_dict['Pickup Time'] = order.pickup_time
+    order_dict['Total Cost'] = "$" + str(round(order.total_cost, 2))
+    order_dict['Order Items'] = order_items_to_dict(order.order_items)
+    return order_dict
+
+
+def order_items_to_dict(order_items):
+    order_items_dicts = []
+    for order_item in order_items:
+        order_items_dict = {}
+        order_items_dict['Id'] = order_item.id
+        order_items_dict['Item Name'] = order_item.item.name
+        order_items_dict['Rating'] = order_item.rating
+        order_items_dict['Quantity'] = order_item.qty
+        order_items_dicts.append(order_items_dict)
+
+    return order_items_dicts
