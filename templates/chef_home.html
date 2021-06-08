@@ -18,7 +18,7 @@
       <button class="tablinks" onclick="openPage(event, 'Items')" id="items_tab">Items</button>
       <button class="tablinks" onclick="openPage(event, 'Orders')" id="orders_tab">Orders</button>
       <button class="tablinks" onclick="openPage(event, 'Dashboard')" id="dashboard_tab">Dashboard</button>
-      <button class="tablinks" onclick="openPage(event, 'Todays_Menu')" id="todays_menu_tab">Today's Menu</button>
+      <button class="tablinks" onclick="openPage(event, 'Meals')" id="meals_tab">Meals</button>
     </div>
 
     <div id="Profile" class="tabcontent">
@@ -211,7 +211,7 @@
       <p>Your performace (Coming Soon)</p>
     </div>
 
-    <div id="Todays_Menu" class="tabcontent">
+    <div id="Meals" class="tabcontent">
       <h2>Meals</h2>
 
       {% if message %}
@@ -261,7 +261,15 @@
       <div>
         {% for meal in meals_dicts %}
           <tr>
-            <h3><span>{{ meal['Date'] }} : </span><span class="green">{{ meal['Pickup Time'] }}</span></h3>
+            <h3 class="meal_time">
+              <span>{{ meal['Date'] }} : </span>
+              <span class="green">{{ meal['Pickup Time'] }}</span>
+              <span> 
+                <form style="float: right;" action="/delete_meal/{{ meal['Id'] }}" method="POST" enctype="multipart/form-data">
+                  <input type="submit" value="&#10005; Delete" class="btn delete_meal"/>
+                </form>
+              </span>
+            </h3>
             {% for item in meal['Items'] %}
               <div class="item">
                 <div class="item_pic">

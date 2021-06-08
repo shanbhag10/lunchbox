@@ -27,6 +27,10 @@ def add_new_meal(request, user_id):
     item_db.save_meal(meal)
 
 
+def delete_meal_by_id(meal_id):
+    item_db.delete_meal_by_id_db(meal_id)
+
+
 def get_meals_for_chef(chef_id):
     return item_db.get_meals_by_chef(chef_id)
 

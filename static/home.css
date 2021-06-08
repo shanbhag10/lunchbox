@@ -261,7 +261,14 @@ table.order_items th {
     padding-top: 10px;
 }
 
-.place_order {
+.right_btn {
+    float: right;
+    margin: 0px 4vw 15px 0px;
+}
+
+.delete_meal {
+    background-color: rgb(226, 57, 14);
+    border: rgb(226, 57, 14);
     float: right;
     margin: 0px 4vw 15px 0px;
 }

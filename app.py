@@ -165,10 +165,23 @@ def add_meal():
     if request.method == 'POST':
         try:
             add_new_meal(request.form, session['user_id'])
-            return redirect(url_for('home', page='todays_menu', message='Successfully added meal'))
+            return redirect(url_for('home', page='meals', message='Successfully added meal'))
         except Exception as e:
             print("Add meal failed : " + str(e))
-            return redirect(url_for('home', page='todays_menu', message='Failed to add meal. Please try again'))
+            return redirect(url_for('home', page='meals', message='Failed to add meal. Please try again'))
+
+
+@app.route('/delete_meal/<meal_id>', methods=['POST', 'GET'])
+def delete_meal(meal_id):
+    if request.method == 'POST':
+        try:
+            delete_meal_by_id(meal_id)
+            return redirect(url_for('home', page='meals', message='Successfully deleted meal'))
+        except Exception as e:
+            print("Delete meal failed : " + str(e))
+            return redirect(url_for('home', page='meals', message='Failed to delete meal. Please try again'))
+
+    return redirect(url_for('home', page='meals', message='Failed to delete meal. Please try again'))
 
 
 @app.route('/place_order', methods=['POST', 'GET'])

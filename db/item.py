@@ -84,6 +84,13 @@ def get_items_by_ids(ids):
     return db.session.query(Item).filter(Item.id.in_(ids))
 
 
+def get_meal_by_id(meal_id):
+    meals = db.session.query(Item).filter(Meal.id == meal_id)
+    if meals.count() == 0:
+        return None
+    return meals.first()
+
+
 def save_item(item):
     db.session.add(item)
     db.session.commit()
@@ -91,4 +98,10 @@ def save_item(item):
 
 def save_meal(meal):
     db.session.add(meal)
+    db.session.commit()
+
+
+def delete_meal_by_id_db(meal_id):
+    meal = get_meal_by_id(meal_id)
+    db.session.delete(meal)
     db.session.commit()
