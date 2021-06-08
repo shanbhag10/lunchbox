@@ -94,7 +94,7 @@ input[type=checkbox]
   -webkit-appearance:checkbox;
 }
 
-input[type='number'] {
+.qty {
     width: 40%;
 }
 
@@ -146,7 +146,7 @@ img {
 }
 
 .item {
-    width: 95%;
+    width: 92%;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.42);
     min-height: 110px;
     border-radius: 4px;
@@ -155,7 +155,7 @@ img {
 }
 
 .order {
-    width: 95%;
+    width: 92%;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.42);
     min-height: 110px;
     border-radius: 4px;
@@ -249,7 +249,7 @@ table.order_items th {
 
 .name_panel {
     background-color: rgb(220, 220, 220);
-    width: 96%;
+    width: 94%;
 }
 
 .chef_name {
@@ -354,6 +354,10 @@ table.order_items th {
 
     .order {
         padding: 0px 10px 0px 10px;
+    }
+
+    .meal_time {
+        font-size: 14px;
     }
 }
 

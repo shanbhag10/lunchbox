@@ -34,18 +34,16 @@ class Meal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date)
     chef_id = db.Column(db.Integer)
-    pickup_start_time = db.Column(db.Time)
-    pickup_end_time = db.Column(db.Time)
+    pickup_time = db.Column(db.Time)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     items = relationship("Item", secondary="items_meals_association")
 
-    def __init__(self, date, chef_id, pickup_start_time, pickup_end_time):
+    def __init__(self, date, chef_id, pickup_time):
         self.date = date
         self.chef_id = chef_id
-        self.pickup_start_time = pickup_start_time
-        self.pickup_end_time = pickup_end_time
+        self.pickup_time = pickup_time
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
 

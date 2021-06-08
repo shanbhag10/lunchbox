@@ -49,8 +49,7 @@ def meal_to_dict(meal):
     meal_dict['Id'] = meal.id
     meal_dict['Date'] = meal.date
     meal_dict['Chef Id'] = meal.chef_id
-    meal_dict['Pickup Start Time'] = meal.pickup_start_time.strftime("%I:%M %p")
-    meal_dict['Pickup End Time'] = meal.pickup_end_time.strftime("%I:%M %p")
+    meal_dict['Pickup Time'] = meal.pickup_time.strftime("%I:%M %p") if meal.pickup_time else meal.created_at.strftime("%I:%M %p")
     meal_dict['Items'] = items_to_dict(meal.items)
     return meal_dict
 

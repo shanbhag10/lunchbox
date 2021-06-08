@@ -108,7 +108,7 @@
             <tr>
               <h3 class="meal_time">
                 <span>{{ meal['Date'] }} : </span>
-                <span class="green">{{ meal['Pickup Start Time'] }} - {{ meal['Pickup End Time'] }}</span>
+                <span class="green">{{ meal['Pickup Time'] }}</span>
                 <span> 
                   <button type="button" class="btn place_order" onclick="openForm('order_form_{{ loop.index }}');">Pick</button>
                 </span>
@@ -132,7 +132,7 @@
                                 </div>
                                     
                                 <div class="right">
-                                    <input type="number" id="{{ item['Id'] }}_qty" name="{{ item['Id'] }}_qty" max="10" min="0">
+                                    <input class="qty" type="number" id="{{ item['Id'] }}_qty" name="{{ item['Id'] }}_qty" max="10" min="0">
                                 </div>
                             </div>
                         {% endfor %}
@@ -141,7 +141,7 @@
                             <textarea name="{{ meal['Id'] }}_{{ chef_id }}_notes_in" rows="2"></textarea>
                         </div>
 
-                        <input type="submit" value="Place Order" class="btn" onclick="openTab('profile_tab');"/>
+                        <input type="submit" value="Place Order" class="btn" onclick="openTab('orders_tab');"/>
                                 
                     </form>
                 </div>

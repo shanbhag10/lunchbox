@@ -98,8 +98,8 @@
         <form action="/add_item" method="POST" enctype="multipart/form-data">
           <div class="input1">
             <div class="left">
-              Name
-              <input type="text" name="item_name" placeholder="eg. Paneer Tikka"/>
+              Name*
+              <input type="text" name="item_name" placeholder="eg. Paneer Tikka" required/>
             </div>
             <div class="right">
               Type
@@ -108,12 +108,12 @@
           </div>
           <div class="input1">
             <div class="left">
-              Cost ($)
-              <input type="text" name="cost" placeholder="eg. 5.99"/>
+              Cost* ($)
+              <input type="number" step="0.01" name="cost" placeholder="eg. 5.99" required/>
             </div>
             <div class="right">
-              Portion size
-              <input type="text" name="portion_size" placeholder="eg. 16 oz"/>
+              Portion size*
+              <input type="text" name="portion_size" placeholder="eg. 16 oz" required/>
             </div>
           </div>
           <div class="input1">
@@ -222,17 +222,13 @@
       <div id="meal_form" class="add_form">
         <form action="/add_meal" method="POST" enctype="multipart/form-data">
           <div class="input1">
-            Date <br>
-            <input type="date" name="meal_date"/>
-          </div>
-          <div class="input1">
             <div class="left">
-              Pickup start time 
-              <input type="time" name="pickup_start_time"/>
+              Date* <br>
+              <input type="date" name="meal_date" required/>
             </div>
             <div class="right">
-              Pickup end time 
-              <input type="time" name="pickup_end_time"/>
+              Pickup Time* 
+              <input type="time" name="pickup_time" required/>
             </div>
           </div>
           <div class="input1" style="margin-top: 15px; font-weight: bold;">
@@ -265,7 +261,7 @@
       <div>
         {% for meal in meals_dicts %}
           <tr>
-            <h3><span>{{ meal['Date'] }} : </span><span class="green">{{ meal['Pickup Start Time'] }} - {{ meal['Pickup End Time'] }}</span></h3>
+            <h3><span>{{ meal['Date'] }} : </span><span class="green">{{ meal['Pickup Time'] }}</span></h3>
             {% for item in meal['Items'] %}
               <div class="item">
                 <div class="item_pic">
