@@ -14,8 +14,10 @@ def place_new_order(request, user_id):
             meal_id = ids[0]
             chef_id = ids[1]
 
+    pickup_time = request['pickup_time_in'] if 'pickup_time_in' in request and request['pickup_time_in'] != '' else None
+
     order = order_db.Order(
-        user_id, meal_id, chef_id, notes, request['pickup_time_in'])
+        user_id, meal_id, chef_id, notes, pickup_time)
 
     order_items = []
     item_qty_dict = {}

@@ -110,11 +110,11 @@
                 <span>{{ meal['Date'] }} : </span>
                 <span class="green">{{ meal['Pickup Start Time'] }} - {{ meal['Pickup End Time'] }}</span>
                 <span> 
-                  <button type="button" class="btn place_order" onclick="openForm('order_form');">Pick</button>
+                  <button type="button" class="btn place_order" onclick="openForm('order_form_{{ loop.index }}');">Pick</button>
                 </span>
               </h3>
       
-                <div id="order_form" class="add_form">
+                <div id="order_form_{{ loop.index }}" class="add_form">
                     <form action="/place_order" method="POST" enctype="multipart/form-data">
                         <div class="input1">
                             <div class="left">
@@ -140,10 +140,7 @@
                             <b>Notes:</b>
                             <textarea name="{{ meal['Id'] }}_{{ chef_id }}_notes_in" rows="2"></textarea>
                         </div>
-                        <div class="input1">
-                            <b>Pickup Time:</b>
-                            <input type="time" name="pickup_time_in"/>
-                        </div>
+
                         <input type="submit" value="Place Order" class="btn" onclick="openTab('profile_tab');"/>
                                 
                     </form>
@@ -193,7 +190,6 @@
               {% endif %}
               <h4>Order Id: <span class="green">#{{ orders_dict['Id'] }}</span></h4>
               <p> <b>Chef:</b> {{ orders_dict['Chef']['First Name'] }} {{ orders_dict['Chef']['Last Name'] }}</p>
-              <p> <b>Pickup Time:</b> {{ orders_dict['Pickup Time'] }}</p>
               <p> <b>Pickup Location:</b> {{ orders_dict['Chef']['Address'] }}</p>
               <p> <b>Items: </b> </p>
               <table class="order_items">
