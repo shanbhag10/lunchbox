@@ -85,7 +85,7 @@ def get_items_by_ids(ids):
 
 
 def get_meal_by_id(meal_id):
-    meals = db.session.query(Item).filter(Meal.id == meal_id)
+    meals = db.session.query(Meal).filter(Meal.id == meal_id)
     if meals.count() == 0:
         return None
     return meals.first()
