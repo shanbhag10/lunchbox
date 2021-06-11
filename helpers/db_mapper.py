@@ -71,6 +71,7 @@ def order_to_dict(order, user):
         order_dict['Chef'] = user_to_dict(user)
     else:
         order_dict['User'] = user_to_dict(user)
+    order_dict['Meal Id'] = order.meal_id
     order_dict['Status'] = order.status
     order_dict['Notes'] = order.notes
     order_dict['Pickup Time'] = order.pickup_time

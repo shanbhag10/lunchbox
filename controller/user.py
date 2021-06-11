@@ -47,7 +47,7 @@ def get_users_by_ids(user_ids):
     return users_by_ids
 
 
-def update_user(request, user_id, pic_url):
+def update_user_profile(request, user_id, pic_url):
     user = user_db.get_user_by_id(user_id)
 
     if request['first_name_in'] != '' and request['first_name_in'] != user.first_name :

@@ -63,6 +63,13 @@ def get_orders_for_chef(chef_id):
     if orders.count() == 0:
         return None
     return orders
+
+
+def get_order_by_id(order_id):
+    orders = db.session.query(Order).filter(Order.id == order_id)
+    if orders.count() == 0:
+        return None
+    return orders.first()
     
 
 def save_order(order):

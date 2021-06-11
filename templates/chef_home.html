@@ -138,7 +138,7 @@
             <tr>
               <div class="item">
                 <div class="item_pic">
-                  {% if item['Picture'] %}
+                  {% if item['Picture'] and 'https://' in item['Picture'] %}
                     <img class="item_pic" src="{{ item['Picture'] }}"/>
                   {% else %}
                     <img class="item_pic" src="../static/food-item-icon.png"/>
@@ -167,42 +167,125 @@
 
     <div id="Orders" class="tabcontent">
       <h2>Orders</h2>
-      {% if orders_dicts %}
-        <h3>New Orders ({{orders_dicts['Placed']|length}})</h3>
-          {% for orders_dict in orders_dicts['Placed'] %}
+      {% if orders_dicts['Placed'] %}
+        <h3>New Orders ({{ orders_dicts['Placed']|length }})</h3>
+        {% for order_dict in orders_dicts['Placed'] %}
           <div class="order">
-            {% if orders_dict['User']['Profile Picture'] %}
+            {% if order_dict['User']['Profile Picture'] %}
             <div>
-              <img class="order_pic" src="{{ orders_dict['User']['Profile Picture'] }}"/>
+              <img class="order_pic" src="{{ order_dict['User']['Profile Picture'] }}"/>
             </div>  
             {% endif %}
-            <h4>Order Id: <span class="green">#{{ orders_dict['Id'] }}</span></h4>
-            <p> <b>Name:</b> {{ orders_dict['User']['First Name'] }} {{ orders_dict['User']['Last Name'] }}</p>
+            <h4>Order Id: <span class="green">#{{ order_dict['Id'] }}</span></h4>
+            <p> <b>Name:</b> {{ order_dict['User']['First Name'] }} {{ order_dict['User']['Last Name'] }}</p>
             <p> <b>Items:</b> </p>
             <table class="order_items">
               <tr>
                 <th>Item Name</th>
                 <th>Quantity</th>
               </tr>
-              {% for item in orders_dict['Order Items'] %}
+              {% for item in order_dict['Order Items'] %}
               <tr>
                 <td>{{ item['Item Name']}}</td>
                 <td>{{ item['Quantity']}}</td>
               </tr>
               {% endfor %}
             </table>
-            {% if orders_dict['Notes'] %}
-            <p> <b>Notes:</b> {{ orders_dict['Notes'] }}</p>
+            <div> 
+              <form style="float: right;" action="/update/{{ order_dict['Id'] }}/Ready" method="POST" enctype="multipart/form-data">
+                <input type="submit" value="Mark As Ready" class="btn"/>
+              </form>
+            </div>
+            {% if order_dict['Notes'] %}
+            <p> <b>Notes:</b> {{ order_dict['Notes'] }}</p>
             {% endif %}
-            <p> <b>Total Cost:</b> {{ orders_dict['Total Cost'] }}</p>
-           
-            {% for order_items in orders_dicts['Order Items'] %}
+            <p> <b>Total Cost:</b> {{ order_dict['Total Cost'] }}
+            </p>
+            {% for order_items in order_dict['Order Items'] %}
               <h6></h6>
             {% endfor %}
           </div>
-          {% endfor %}
+        {% endfor %}
       {% else %}
-          <p>No new orders</p>
+        <h3>New Orders</h3>
+        <p> No new orders</p>
+      {% endif %}
+
+      {% if orders_dicts['Ready'] %}
+        <h3>Ready Orders ({{ orders_dicts['Ready']|length }})</h3>
+        {% for order_dict in orders_dicts['Ready'] %}
+          <div class="order">
+            {% if order_dict['User']['Profile Picture'] %}
+            <div>
+              <img class="order_pic" src="{{ order_dict['User']['Profile Picture'] }}"/>
+            </div>  
+            {% endif %}
+            <h4>Order Id: <span class="green">#{{ order_dict['Id'] }}</span></h4>
+            <p> <b>Name:</b> {{ order_dict['User']['First Name'] }} {{ order_dict['User']['Last Name'] }}</p>
+            <p> <b>Items:</b> </p>
+            <table class="order_items">
+              <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+              </tr>
+              {% for item in order_dict['Order Items'] %}
+              <tr>
+                <td>{{ item['Item Name']}}</td>
+                <td>{{ item['Quantity']}}</td>
+              </tr>
+              {% endfor %}
+            </table>
+            <div> 
+              <form style="float: right;" action="/update/{{ order_dict['Id'] }}/Complete" method="POST" enctype="multipart/form-data">
+                <input type="submit" value="Mark as Complete" class="btn"/>
+              </form>
+            </div>
+            {% if order_dict['Notes'] %}
+            <p> <b>Notes:</b> {{ order_dict['Notes'] }}</p>
+            {% endif %}
+            <p> <b>Total Cost:</b> {{ order_dict['Total Cost'] }}
+            </p>
+            {% for order_items in order_dict['Order Items'] %}
+              <h6></h6>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      {% if orders_dicts['Complete'] %}
+        <h3>Past Orders ({{ orders_dicts['Complete']|length }})</h3>
+        {% for order_dict in orders_dicts['Complete'] %}
+          <div class="order">
+            {% if order_dict['User']['Profile Picture'] %}
+            <div>
+              <img class="order_pic" src="{{ order_dict['User']['Profile Picture'] }}"/>
+            </div>  
+            {% endif %}
+            <h4>Order Id: <span class="green">#{{ order_dict['Id'] }}</span></h4>
+            <p> <b>Name:</b> {{ order_dict['User']['First Name'] }} {{ order_dict['User']['Last Name'] }}</p>
+            <p> <b>Items:</b> </p>
+            <table class="order_items">
+              <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+              </tr>
+              {% for item in order_dict['Order Items'] %}
+              <tr>
+                <td>{{ item['Item Name']}}</td>
+                <td>{{ item['Quantity']}}</td>
+              </tr>
+              {% endfor %}
+            </table>
+            {% if order_dict['Notes'] %}
+            <p> <b>Notes:</b> {{ order_dict['Notes'] }}</p>
+            {% endif %}
+            <p> <b>Total Cost:</b> {{ order_dict['Total Cost'] }}
+            </p>
+            {% for order_items in order_dict['Order Items'] %}
+              <h6></h6>
+            {% endfor %}
+          </div>
+        {% endfor %}
       {% endif %}
     </div>
 
@@ -273,7 +356,7 @@
             {% for item in meal['Items'] %}
               <div class="item">
                 <div class="item_pic">
-                  {% if item['Picture'] %}
+                  {% if item['Picture'] and 'https://' in item['Picture'] %}
                     <img class="item_pic" src="{{ item['Picture'] }}"/>
                   {% else %}
                     <img class="item_pic" src="../static/food-item-icon.png"/>

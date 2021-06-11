@@ -49,3 +49,9 @@ def get_orders_for_user(user_id):
 
 def get_orders_for_chef(chef_id):
     return order_db.get_orders_for_chef(chef_id)
+
+
+def update_order_status(order_id, status):
+    order = order_db.get_order_by_id(order_id)
+    order.status = status
+    return order_db.update_order()

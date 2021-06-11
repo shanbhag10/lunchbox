@@ -72,12 +72,8 @@ def login():
             user = get_user_by_email(session['email'])
             session['user_id'] = user.id
             session['date'] = datetime.today
-            
-            page='meals'
-            if user.user_type == 'chef':
-                page = 'todays_menu'
 
-            return redirect(url_for('home', page=page))
+            return redirect(url_for('home', page='meals'))
         except Exception as e:
             print("Login error : " + str(e))
 
@@ -153,7 +149,7 @@ def update_profile():
     if request.method == 'POST':
         try:
             pic_url = upload_pic(request.files['profile_pic'], session['user_id'], request.form['first_name_in'])
-            update_user(request.form, session['user_id'], pic_url)
+            update_user_profile(request.form, session['user_id'], pic_url)
             return redirect(url_for('home', page='profile', message='Successfully updated profile'))
         except Exception as e:
             print("Update profile failed : " + str(e))
@@ -193,6 +189,17 @@ def place_order():
         except Exception as e:
             print("Order placement failed : " + str(e))
             return redirect(url_for('home', page='orders', message='Failed to place order. Please try again'))
+
+
+@app.route('/update/<order_id>/<status>', methods=['POST', 'GET'])
+def update_order(order_id, status):
+    if request.method == 'POST':
+        try:
+            update_order_status(order_id, status)
+            return redirect(url_for('home', page='orders', message='Order updated successfully.'))
+        except Exception as e:
+            print("Order update failed : " + str(e))
+            return redirect(url_for('home', page='orders', message='Failed to update order. Please try again'))
 
 
 if __name__ == '__main__':
