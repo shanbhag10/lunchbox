@@ -17,6 +17,7 @@
       <button class="tablinks" onclick="openPage(event, 'Meals')" id="meals_tab">Meals</button>
       <button class="tablinks" onclick="openPage(event, 'Orders')" id="orders_tab">Orders</button>
       <button class="tablinks" onclick="openPage(event, 'Dashboard')" id="dashboard_tab">Dashboard</button>
+      <button class="tablinks" onclick="openPage(event, 'Wallet')" id="wallet_tab">Wallet</button>
     </div>
 
     <div id="Profile" class="tabcontent">
@@ -43,7 +44,10 @@
       </table>
 
       <button type="button" class="btn" onclick="openForm('user_form');">Update Profile</button>
-      
+      <form action="/">
+        <input type="submit" class="btn" value="Logout" />
+      </form>
+
       <div id="user_form" class="add_form">
         <form action="/update_profile" method="POST" enctype="multipart/form-data">
           <div class="input1">
@@ -115,7 +119,7 @@
               </h3>
       
                 <div id="order_form_{{ chef_id }}_{{ loop.index }}" class="add_form">
-                    <form action="/place_order" method="POST" enctype="multipart/form-data">
+                    <form action="/place_order/{{ meal['Id'] }}/{{ chef_id }}/{{ meal['Date'] }}" method="POST" enctype="multipart/form-data">
                         <div class="input1">
                             <div class="left">
                                 <b>Item</b>
@@ -138,7 +142,7 @@
                         {% endfor %}
                         <div class="input1">
                             <b>Notes:</b>
-                            <textarea name="{{ meal['Id'] }}_{{ chef_id }}_notes_in" rows="2"></textarea>
+                            <textarea name="notes_in" rows="2"></textarea>
                         </div>
 
                         <input type="submit" value="Place Order" class="btn" onclick="openTab('orders_tab');"/>
@@ -192,6 +196,7 @@
                 <h4>Order Id: <span class="green">#{{ orders_dict['Id'] }}</span></h4>
                 <p> <b>Chef:</b> {{ orders_dict['Chef']['First Name'] }} {{ orders_dict['Chef']['Last Name'] }}</p>
                 <p> <b>Pickup Location:</b> {{ orders_dict['Chef']['Address'] }}</p>
+                <p> <b>Pickup Date:</b> {{ orders_dict['Date'] }}</p>
                 <p> <b>Items: </b> </p>
                 <table class="order_items">
                 <tr>
@@ -229,6 +234,7 @@
               <h4>Order Id: <span class="green">#{{ orders_dict['Id'] }}</span></h4>
               <p> <b>Chef:</b> {{ orders_dict['Chef']['First Name'] }} {{ orders_dict['Chef']['Last Name'] }}</p>
               <p> <b>Pickup Location:</b> {{ orders_dict['Chef']['Address'] }}</p>
+              <p> <b>Pickup Date:</b> {{ orders_dict['Date'] }}</p>
               <p> <b>Items: </b> </p>
               <table class="order_items">
                 <tr>
@@ -267,7 +273,6 @@
             {% endif %}
             <h4>Order Id: <span class="green">#{{ orders_dict['Id'] }}</span></h4>
             <p> <b>Chef:</b> {{ orders_dict['Chef']['First Name'] }} {{ orders_dict['Chef']['Last Name'] }}</p>
-            <p> <b>Pickup Location:</b> {{ orders_dict['Chef']['Address'] }}</p>
             <p> <b>Items: </b> </p>
             <table class="order_items">
                 <tr>
@@ -297,6 +302,11 @@
     <div id="Dashboard" class="tabcontent">
         <h2>Dashboard</h2>
         <p>Your food analysis (Coming Soon)</p>
+    </div>
+
+    <div id="Wallet" class="tabcontent">
+        <h2>Wallet</h2>
+        <p>Your transactions (Coming Soon)</p>
     </div>
 
     <script>openTab("{{ page }}_tab");</script>

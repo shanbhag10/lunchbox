@@ -17,8 +17,9 @@
       <button class="tablinks" onclick="openPage(event, 'Profile')" id="profile_tab">Profile</button>
       <button class="tablinks" onclick="openPage(event, 'Items')" id="items_tab">Items</button>
       <button class="tablinks" onclick="openPage(event, 'Orders')" id="orders_tab">Orders</button>
-      <button class="tablinks" onclick="openPage(event, 'Dashboard')" id="dashboard_tab">Dashboard</button>
       <button class="tablinks" onclick="openPage(event, 'Meals')" id="meals_tab">Meals</button>
+      <button class="tablinks" onclick="openPage(event, 'Dashboard')" id="dashboard_tab">Dashboard</button>
+      <button class="tablinks" onclick="openPage(event, 'Wallet')" id="wallet_tab">Wallet</button>
     </div>
 
     <div id="Profile" class="tabcontent">
@@ -45,7 +46,10 @@
       </table>
 
       <button type="button" class="btn" onclick="openForm('user_form');">Update Profile</button>
-      
+      <form action="/">
+        <input type="submit" class="btn" value="Logout" />
+      </form>
+
       <div id="user_form" class="add_form">
         <form action="/update_profile" method="POST" enctype="multipart/form-data">
           <div class="input1">
@@ -178,6 +182,7 @@
             {% endif %}
             <h4>Order Id: <span class="green">#{{ order_dict['Id'] }}</span></h4>
             <p> <b>Name:</b> {{ order_dict['User']['First Name'] }} {{ order_dict['User']['Last Name'] }}</p>
+            <p> <b>Pickup Date:</b> {{ order_dict['User']['Date'] }}</p>
             <p> <b>Items:</b> </p>
             <table class="order_items">
               <tr>
@@ -191,14 +196,14 @@
               </tr>
               {% endfor %}
             </table>
+            {% if order_dict['Notes'] %}
+            <p> <b>Notes:</b> {{ order_dict['Notes'] }}</p>
+            {% endif %}
             <div> 
               <form style="float: right;" action="/update/{{ order_dict['Id'] }}/Ready" method="POST" enctype="multipart/form-data">
                 <input type="submit" value="Mark As Ready" class="btn"/>
               </form>
             </div>
-            {% if order_dict['Notes'] %}
-            <p> <b>Notes:</b> {{ order_dict['Notes'] }}</p>
-            {% endif %}
             <p> <b>Total Cost:</b> {{ order_dict['Total Cost'] }}
             </p>
             {% for order_items in order_dict['Order Items'] %}
@@ -222,6 +227,7 @@
             {% endif %}
             <h4>Order Id: <span class="green">#{{ order_dict['Id'] }}</span></h4>
             <p> <b>Name:</b> {{ order_dict['User']['First Name'] }} {{ order_dict['User']['Last Name'] }}</p>
+            <p> <b>Pickup Date:</b> {{ order_dict['User']['Date'] }}</p>
             <p> <b>Items:</b> </p>
             <table class="order_items">
               <tr>
@@ -235,14 +241,14 @@
               </tr>
               {% endfor %}
             </table>
+            {% if order_dict['Notes'] %}
+            <p> <b>Notes:</b> {{ order_dict['Notes'] }}</p>
+            {% endif %}
             <div> 
               <form style="float: right;" action="/update/{{ order_dict['Id'] }}/Complete" method="POST" enctype="multipart/form-data">
                 <input type="submit" value="Mark as Complete" class="btn"/>
               </form>
             </div>
-            {% if order_dict['Notes'] %}
-            <p> <b>Notes:</b> {{ order_dict['Notes'] }}</p>
-            {% endif %}
             <p> <b>Total Cost:</b> {{ order_dict['Total Cost'] }}
             </p>
             {% for order_items in order_dict['Order Items'] %}
@@ -287,11 +293,6 @@
           </div>
         {% endfor %}
       {% endif %}
-    </div>
-
-    <div id="Dashboard" class="tabcontent">
-      <h2>Dashboard</h2>
-      <p>Your performace (Coming Soon)</p>
     </div>
 
     <div id="Meals" class="tabcontent">
@@ -380,6 +381,16 @@
           </tr>
         {% endfor %}
       </div>
+    </div>
+
+    <div id="Dashboard" class="tabcontent">
+      <h2>Dashboard</h2>
+      <p>Your performace (Coming Soon)</p>
+    </div>
+
+    <div id="Wallet" class="tabcontent">
+      <h2>Wallet</h2>
+      <p>Your transactions (Coming Soon)</p>
     </div>
 
     <script>openTab("{{ page }}_tab");</script>

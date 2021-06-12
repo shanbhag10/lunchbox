@@ -14,18 +14,19 @@ class Order(db.Model):
     notes = db.Column(db.String(400))
     total_cost = db.Column(db.Float)
     pickup_time = db.Column(db.Time)
+    date = db.Column(db.Date)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     order_items = relationship("Order_item")
 
-    def __init__(self, user_id, meal_id, chef_id, notes, pickup_time):
+    def __init__(self, user_id, meal_id, chef_id, notes, date):
         self.user_id = user_id
         self.meal_id = meal_id
         self.chef_id = chef_id
         self.status = "Placed"
         self.notes = notes
-        self.pickup_time = pickup_time
+        self.date = date
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
 

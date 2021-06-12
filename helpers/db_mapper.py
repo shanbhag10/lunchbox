@@ -47,7 +47,7 @@ def meals_to_dicts(meals):
 def meal_to_dict(meal):
     meal_dict = {}
     meal_dict['Id'] = meal.id
-    meal_dict['Date'] = meal.date
+    meal_dict['Date'] = meal.date.strftime("%m/%d/%Y") if meal.date != None else None
     meal_dict['Chef Id'] = meal.chef_id
     meal_dict['Pickup Time'] = meal.pickup_time.strftime("%I:%M %p") if meal.pickup_time else meal.created_at.strftime("%I:%M %p")
     meal_dict['Items'] = items_to_dict(meal.items)
@@ -75,6 +75,8 @@ def order_to_dict(order, user):
     order_dict['Status'] = order.status
     order_dict['Notes'] = order.notes
     order_dict['Pickup Time'] = order.pickup_time
+    order_dict['Date'] = order.date.strftime("%m/%d/%Y") if order.date != None else None
+    order_dict['Created At'] = order.created_at
     order_dict['Total Cost'] = "$" + str(round(order.total_cost, 2))
     order_dict['Order Items'] = order_items_to_dict(order.order_items)
     return order_dict

@@ -3,21 +3,8 @@ from db.order import *
 from controller.item import *
 import datetime
 
-def place_new_order(request, user_id):
-    notes = ''
-    meal_id = ''
-    chef_id = ''
-    for key, value in request.items():
-        if 'notes' in key:
-            ids = key.split('_')
-            notes = value
-            meal_id = ids[0]
-            chef_id = ids[1]
-
-    pickup_time = request['pickup_time_in'] if 'pickup_time_in' in request and request['pickup_time_in'] != '' else None
-
-    order = order_db.Order(
-        user_id, meal_id, chef_id, notes, pickup_time)
+def place_new_order(request, user_id, meal_id, chef_id, date):
+    order = order_db.Order(user_id, meal_id, chef_id, request['notes_in'], date)
 
     order_items = []
     item_qty_dict = {}

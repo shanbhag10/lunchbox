@@ -180,11 +180,11 @@ def delete_meal(meal_id):
     return redirect(url_for('home', page='meals', message='Failed to delete meal. Please try again'))
 
 
-@app.route('/place_order', methods=['POST', 'GET'])
-def place_order():
+@app.route('/place_order/<meal_id>/<chef_id>/<date>', methods=['POST', 'GET'])
+def place_order(meal_id, chef_id, date):
     if request.method == 'POST':
         try:
-            place_new_order(request.form, session['user_id'])
+            place_new_order(request.form, session['user_id'], meal_id, chef_id, date)
             return redirect(url_for('home', page='orders', message='Order placed successfully. Track it in the Orders tab.'))
         except Exception as e:
             print("Order placement failed : " + str(e))

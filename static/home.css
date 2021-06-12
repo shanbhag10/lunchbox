@@ -95,7 +95,7 @@ input[type=checkbox]
 }
 
 .qty {
-    width: 40%;
+    width: 40% !important;
 }
 
 .heading {
