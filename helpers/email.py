@@ -1,5 +1,6 @@
 import boto3
 from botocore.exceptions import ClientError
+import os
 
 
 def build_order_ready_email(order, user, chef):
@@ -57,7 +58,12 @@ def send_email(email, subject, body):
 	
 	CHARSET = "UTF-8"
 	
-	client = boto3.client('ses',region_name="us-west-1")
+	client = boto3.client(
+		'ses',
+	   	aws_access_key_id=os.environ.get('AWS_ACCESS_KEY'),
+   		aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+		region_name=os.environ.get('AWS_DEFAULT_REGION')
+	)
 
 	try:
 	    response = client.send_email(
