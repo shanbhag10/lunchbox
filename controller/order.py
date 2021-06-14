@@ -1,6 +1,8 @@
 import db.order as order_db
 from db.order import *
 from controller.item import *
+from controller.user import *
+from helpers.email import *
 import datetime
 
 def place_new_order(request, user_id, meal_id, chef_id, date):
@@ -41,4 +43,9 @@ def get_orders_for_chef(chef_id):
 def update_order_status(order_id, status):
     order = order_db.get_order_by_id(order_id)
     order.status = status
+    if status == 'Ready':
+        user = get_user_by_id(order.user_id)
+        chef = get_user_by_id(order.chef_id)
+        body = build_order_ready_email(order, user, chef)
+        send_email(user.email, "Your order is ready!", body)
     return order_db.update_order()

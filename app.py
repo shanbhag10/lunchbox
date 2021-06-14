@@ -47,7 +47,7 @@ def create_account():
                 return render_template('create_account.html', message='User with this email already exists. Try logging in.')
             
             create_new_user(request.form)
-            return render_template('login.html', message='Successfully created your account. Welcome to lunchbox. :D Please sign in')
+            return render_template('login.html', message='Successfully created your account. Welcome to lunchbox. :D Please sign in. <br />To receive email alerts, please verify your email')
         except Exception as e:
             print("Account creation error : " + str(e))
             return render_template('login.html', message='Something went wrong. Please try again')

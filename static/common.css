@@ -29,14 +29,24 @@ input {
     appearance: none;
 }
 
-input[type=checkbox]
-{
+input[type=checkbox] {
   -webkit-appearance:checkbox;
+  -moz-appearance:checkbox;
 }
 
-input[type=radio]
-{
+input[type=radio] {
   -webkit-appearance:radio;
+  -moz-appearance:radio;
+}
+
+input[type=time] {
+  -webkit-appearance:textfield;
+  -moz-appearance:textfield;
+}
+
+input[type=date] {
+  -webkit-appearance:textfield;
+  -moz-appearance:textfield;
 }
 
 .green {
