@@ -17,12 +17,16 @@ def build_order_ready_email(order, user, chef):
 			text-align: center;
 			padding: 5px;
 		}
+
+		.green {
+			color: rgb(50, 163, 1);
+		}
 	</style>
 	</head>
 	<body>
-	  <h1>Order #"""
+	  <h1>Order <span class="green">#""" 
 	  
-	html_body += str(order.id) +	" is ready</h1>"
+	html_body += str(order.id) +	"</span> is ready</h1>"
 	html_body += "<p>Hi " + user.first_name + ", "
 
 	gmaps_url = 'https://www.google.com/maps/dir//' + chef.address.replace(" ", "+")
@@ -34,7 +38,7 @@ def build_order_ready_email(order, user, chef):
 	html_body += """
 		<table class="order_items">
 		<tr>
-            <th>Item Name</th>
+            <th>Item</th>
             <th>Quantity</th>
         </tr>
 	"""
@@ -46,8 +50,8 @@ def build_order_ready_email(order, user, chef):
 		html_body += "</tr>"
 
 	html_body += "</table>"
-	html_body += "<p><b>Total Cost: $</b>" + str(order.total_cost) +"</p>"
-	html_body += "<h3>Enjoy!</h3>"		
+	html_body += "<p><b>Total Cost: </b>$" + str(order.total_cost) +"</p>"
+	html_body += "<h3>Enjoy! &#128513;</h3>"		
 	html_body += "</body></html>"
 
 	return html_body
