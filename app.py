@@ -29,6 +29,7 @@ from controller.order import *
 from helpers.validator import *
 from helpers.db_mapper import *
 from helpers.s3 import *
+from helpers.email import *
 
 
 @app.route('/')
@@ -47,6 +48,7 @@ def create_account():
                 return render_template('create_account.html', message='User with this email already exists. Try logging in.')
             
             create_new_user(request.form)
+            verify_user_email(request.form['email'])
             return render_template('login.html', message='Successfully created your account. Welcome to lunchbox. :D Please sign in. <br />To receive email alerts, please verify your email')
         except Exception as e:
             print("Account creation error : " + str(e))
@@ -78,6 +80,17 @@ def login():
             print("Login error : " + str(e))
 
     return render_template('login.html', message='Something went wrong. Please try again')
+
+
+@app.route('/verify_email/<email>', methods=['POST', 'GET'])
+def verify_email(email):
+    if request.method == 'POST':
+        try:
+            verify_user_email(email)
+            return redirect(url_for('home', page='profile', message='Successfully added meal'))
+        except Exception as e:
+            print("Verify email failed : " + str(e))
+            return redirect(url_for('home', page='meals', message='Failed to send email verification. Please try again'))
 
 
 @app.route('/home/<page>', methods=['GET'])

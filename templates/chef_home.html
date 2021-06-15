@@ -45,10 +45,17 @@
         {% endfor %}
       </table>
 
-      <button type="button" class="btn" onclick="openForm('user_form');">Update Profile</button>
-      <form action="/">
-        <input type="submit" class="btn" value="Logout" />
-      </form>
+      <table>
+        <tr>
+          <td><button type="button" class="btn" onclick="openForm('user_form');">Update Profile</button></td>
+          <td><form action="/verify_email/{{ user_profile['Email'] }}">
+            <input type="submit" class="btn" value="Verify Email" />
+          </form></td>
+          <td><form action="/">
+            <input type="submit" class="btn" value="Logout" />
+          </form></td>
+        </tr>
+      </table>
 
       <div id="user_form" class="add_form">
         <form action="/update_profile" method="POST" enctype="multipart/form-data">
@@ -180,10 +187,9 @@
               <img class="order_pic" src="{{ order_dict['User']['Profile Picture'] }}"/>
             </div>  
             {% endif %}
-            <h4>Order Id: <span class="green">#{{ order_dict['Id'] }}</span></h4>
+            <h4> <span class="green order_num">{{ loop.index }} </span> Order Id: #{{ orders_dict['Id'] }}</span></h4>
             <p> <b>Name:</b> {{ order_dict['User']['First Name'] }} {{ order_dict['User']['Last Name'] }}</p>
             <p> <b>Pickup Date:</b> {{ order_dict['User']['Date'] }}</p>
-            <p> <b>Items:</b> </p>
             <table class="order_items">
               <tr>
                 <th>Item Name</th>
@@ -219,16 +225,15 @@
       {% if orders_dicts['Ready'] %}
         <h3>Ready Orders ({{ orders_dicts['Ready']|length }})</h3>
         {% for order_dict in orders_dicts['Ready'] %}
-          <div class="order">
+          <div class="order order_ready">
             {% if order_dict['User']['Profile Picture'] %}
             <div>
               <img class="order_pic" src="{{ order_dict['User']['Profile Picture'] }}"/>
             </div>  
             {% endif %}
-            <h4>Order Id: <span class="green">#{{ order_dict['Id'] }}</span></h4>
+            <h4> <span class="green order_num">{{ loop.index }} </span> Order Id: #{{ orders_dict['Id'] }}</span></h4>
             <p> <b>Name:</b> {{ order_dict['User']['First Name'] }} {{ order_dict['User']['Last Name'] }}</p>
             <p> <b>Pickup Date:</b> {{ order_dict['User']['Date'] }}</p>
-            <p> <b>Items:</b> </p>
             <table class="order_items">
               <tr>
                 <th>Item Name</th>
@@ -261,15 +266,14 @@
       {% if orders_dicts['Complete'] %}
         <h3>Past Orders ({{ orders_dicts['Complete']|length }})</h3>
         {% for order_dict in orders_dicts['Complete'] %}
-          <div class="order">
+          <div class="order order_past">
             {% if order_dict['User']['Profile Picture'] %}
             <div>
               <img class="order_pic" src="{{ order_dict['User']['Profile Picture'] }}"/>
             </div>  
             {% endif %}
-            <h4>Order Id: <span class="green">#{{ order_dict['Id'] }}</span></h4>
+            <h4> <span class="green order_num">{{ loop.index }} </span> Order Id: #{{ orders_dict['Id'] }}</span></h4>
             <p> <b>Name:</b> {{ order_dict['User']['First Name'] }} {{ order_dict['User']['Last Name'] }}</p>
-            <p> <b>Items:</b> </p>
             <table class="order_items">
               <tr>
                 <th>Item Name</th>

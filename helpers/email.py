@@ -3,6 +3,22 @@ from botocore.exceptions import ClientError
 import os
 
 
+def verify_user_email(email):
+	client = boto3.client(
+		'ses',
+	   	aws_access_key_id=os.environ.get('AWS_ACCESS_KEY'),
+   		aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+		region_name=os.environ.get('AWS_DEFAULT_REGION')
+	)
+	
+	try:
+		response = client.verify_email_identity(EmailAddress=email)
+	except ClientError as e:
+	    print("Email verification failed: " + e.response['Error']['Message'])
+	else:
+	    print("Email verification sent")
+
+
 def build_order_ready_email(order, user, chef):
 	html_body = """
 	<html>

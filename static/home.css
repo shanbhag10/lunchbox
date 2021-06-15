@@ -163,6 +163,8 @@ img {
     padding: 0px 20px 0px 20px;
     overflow: scroll;
     max-width: 600px;
+    border-style: solid;
+    border-width: 1px;
 }
 
 .order_items,
@@ -273,6 +275,18 @@ table.order_items th {
     margin: 0px 4vw 15px 0px;
 }
 
+.order_num {
+    font-size: 25px;
+}
+
+.order_ready {
+    border-color: rgb(50, 163, 1);
+}
+
+.order_past {
+    background-color: rgb(235, 235, 235);
+}
+
 
 @media screen and (max-width: 600px) {
     .tabcontent {
@@ -365,6 +379,10 @@ table.order_items th {
 
     .meal_time {
         font-size: 14px;
+    }
+
+    .order_num {
+        font-size: 15px;
     }
 }
 
