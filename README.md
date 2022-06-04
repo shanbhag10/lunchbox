@@ -1,5 +1,14 @@
-# lunchbox
-A web app that connects local home chefs to busy folks for healthy home-made food
+# Lunchbox
+A web portal that connects local home masterchefs with people who wish to eat healthy home cooked meals but are too busy to cook daily. 
+
+Check it out here - [bit.ly/lunchbox-app](https://www.bit.ly/lunchbox-app)
+
+## Demo
+
+
+https://user-images.githubusercontent.com/29813712/171992031-f153228e-5d50-4314-88db-24554bf68112.mp4
+
+
 
 ## Commands 
 ### Kill flask process
