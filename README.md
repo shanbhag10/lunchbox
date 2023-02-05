@@ -1,7 +1,7 @@
 # Lunchbox
 A web portal that connects local home masterchefs with people who wish to eat healthy home cooked meals but are too busy to cook daily. 
 
-Check it out here - [bit.ly/lunchbox-app](https://www.bit.ly/lunchbox-app)
+Check it out here - [bit.ly/lunchbox-app](https://www.bit.ly/lunchbox-app) (Currently Unavailable - Work in progress. Stay tuned for a new look)
 
 ## Demo
 
